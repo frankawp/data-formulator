@@ -206,7 +206,7 @@ export const ModelSelectionButton: React.FC<{}> = ({ }) => {
                 renderInput={(params) => (
                     <TextField
                         {...params}
-                        placeholder="provider"
+                        placeholder="提供商"
                         slotProps={{
                             input: {
                                 ...params.InputProps,
@@ -226,7 +226,7 @@ export const ModelSelectionButton: React.FC<{}> = ({ }) => {
                     paper: (props) => {
                         return <Paper {...props}>
                             <Typography sx={{ p: 1, color: 'gray', fontStyle: 'italic', fontSize: '0.75rem' }}>
-                                examples
+                                示例
                             </Typography>
                             {props.children}
                         </Paper>
@@ -241,7 +241,7 @@ export const ModelSelectionButton: React.FC<{}> = ({ }) => {
                         style: { fontSize: "0.75rem" }
                     }
                 }}
-                placeholder='optional for keyless endpoint'
+                placeholder='无密钥端点可选'
                 value={newApiKey}  
                 onChange={(event: any) => { setNewApiKey(event.target.value); }} 
                 autoComplete='off'
@@ -265,7 +265,7 @@ export const ModelSelectionButton: React.FC<{}> = ({ }) => {
         </TableCell>
         <TableCell align="right">
             <TextField size="small" type="text" fullWidth
-                placeholder="optional"
+                placeholder="可选"
                 slotProps={{
                     input: {
                         style: { fontSize: "0.75rem" }
@@ -285,11 +285,11 @@ export const ModelSelectionButton: React.FC<{}> = ({ }) => {
                 }}
                 value={newApiVersion}  onChange={(event: any) => { setNewApiVersion(event.target.value); }} 
                 autoComplete='off'
-                placeholder="optional"
+                placeholder="可选"
             />
         </TableCell>
         <TableCell align="right">
-            <Tooltip title={modelExists ? "provider + model already exists" : "add and test model"}>
+            <Tooltip title={modelExists ? "提供商+模型已存在" : "添加并测试模型"}>
                 <span>  
                     <IconButton color={modelExists ? 'error' : 'primary'}
                         disabled={!readyToTest}
@@ -345,7 +345,7 @@ export const ModelSelectionButton: React.FC<{}> = ({ }) => {
             </Tooltip>
         </TableCell>
         <TableCell align="right">
-            <Tooltip title={"clear"}>
+            <Tooltip title={"清除"}>
                 <IconButton 
                     onClick={(event) => {
                         event.stopPropagation()
@@ -366,12 +366,12 @@ export const ModelSelectionButton: React.FC<{}> = ({ }) => {
         <Table sx={{ minWidth: 600, "& .MuiTableCell-root": { padding: "4px 8px", borderBottom: "none", fontSize: '0.75rem' } }} size="small" >
             <TableHead>
                 <TableRow>
-                    <TableCell sx={{fontWeight: 'bold', width: '120px'}}>Provider</TableCell>
-                    <TableCell sx={{fontWeight: 'bold', width: '160px'}}>API Key</TableCell>
-                    <TableCell sx={{fontWeight: 'bold', width: '160px'}} align="left">Model</TableCell>
-                    <TableCell sx={{fontWeight: 'bold', width: '200px'}} align="left">API Base</TableCell>
-                    <TableCell sx={{fontWeight: 'bold', width: '120px'}} align="left">API Version</TableCell>
-                    <TableCell sx={{fontWeight: 'bold'}} align="left">Status</TableCell>
+                    <TableCell sx={{fontWeight: 'bold', width: '120px'}}>提供商</TableCell>
+                    <TableCell sx={{fontWeight: 'bold', width: '160px'}}>API密钥</TableCell>
+                    <TableCell sx={{fontWeight: 'bold', width: '160px'}} align="left">模型</TableCell>
+                    <TableCell sx={{fontWeight: 'bold', width: '200px'}} align="left">API地址</TableCell>
+                    <TableCell sx={{fontWeight: 'bold', width: '120px'}} align="left">API版本</TableCell>
+                    <TableCell sx={{fontWeight: 'bold'}} align="left">状态</TableCell>
                     <TableCell sx={{fontWeight: 'bold'}} align="right"></TableCell>
                 </TableRow>
             </TableHead>
@@ -382,12 +382,12 @@ export const ModelSelectionButton: React.FC<{}> = ({ }) => {
                     let statusIcon = status  == "unknown" ? <HelpOutlineIcon color="warning" fontSize="small" /> : ( status == 'testing' ? <CircularProgress size={20} />:
                             (status == "ok" ? <CheckCircleOutlineIcon color="success" fontSize="small"/> : <ErrorOutlineIcon color="error" fontSize="small"/> ))
                     
-                    let message = "Model is ready to use";
+                    let message = "模型已准备就绪";
                     if (status == "unknown") {
-                        message = "Click to test if this model is working";
+                        message = "点击测试此模型是否可用";
                     } else if (status == "error") {
-                        const rawMessage = testedModels.find(t => t.id == model.id)?.message || "Unknown error";
-                        message = `Error: ${decodeHtmlEntities(rawMessage)}. Click to retest.`;
+                        const rawMessage = testedModels.find(t => t.id == model.id)?.message || "未知错误";
+                        message = `错误：${decodeHtmlEntities(rawMessage)}。点击重新测试。`;
                     }
 
                     const borderStyle = ['error'].includes(status) ? '1px dashed lightgray' : undefined;
@@ -471,12 +471,12 @@ export const ModelSelectionButton: React.FC<{}> = ({ }) => {
                                         sx={{ p: 0.75, fontSize: "0.75rem", textTransform: "none" }}
                                         startIcon={statusIcon}
                                     >
-                                        {status == 'ok' ? 'Ready' : status == 'error' ? 'Retest' : 'Test'}
+                                        {status == 'ok' ? '就绪' : status == 'error' ? '重测' : '测试'}
                                     </Button>
                                 </Tooltip>
                             </TableCell>
                             <TableCell sx={{ borderBottom: borderStyle }} align="right">
-                                <Tooltip title="remove model">
+                                <Tooltip title="移除模型">
                                     <IconButton 
                                         size="small"
                                         onClick={()=>{
@@ -518,9 +518,9 @@ export const ModelSelectionButton: React.FC<{}> = ({ }) => {
     let selectedModelName = models.find(m => m.id == selectedModelId)?.model || 'Unselected';
 
     return <>
-        <Tooltip title="Select a model">
+        <Tooltip title="选择模型">
             <Button sx={{fontSize: "inherit", textTransform: "none"}} variant="text" color={modelNotReady ? 'warning' : "primary"} onClick={()=>{setModelDialogOpen(true)}}>
-                {modelNotReady ? 'Select Models' : selectedModelName}
+                {modelNotReady ? '选择模型' : selectedModelName}
             </Button>
         </Tooltip>
         <Dialog 
@@ -532,7 +532,7 @@ export const ModelSelectionButton: React.FC<{}> = ({ }) => {
                 }
             }}
         >
-            <DialogTitle sx={{display: "flex",  alignItems: "center"}}>Select a model</DialogTitle>
+            <DialogTitle sx={{display: "flex",  alignItems: "center"}}>选择模型</DialogTitle>
             <DialogContent >
             <Box sx={{
                     display: 'flex', 
@@ -575,18 +575,18 @@ export const ModelSelectionButton: React.FC<{}> = ({ }) => {
                 {!serverConfig.DISABLE_DISPLAY_KEYS && (
                     <Button sx={{marginRight: 'auto'}} endIcon={showKeys ? <VisibilityOffIcon /> : <VisibilityIcon />} onClick={()=>{
                         setShowKeys(!showKeys);}}>
-                            {showKeys ? 'hide' : 'show'} keys
+                            {showKeys ? '隐藏' : '显示'}密钥
                     </Button>
                 )}
                 <Button disabled={modelNotReady} sx={{textTransform: 'none'}}
                     variant={modelNotReady ? 'text' : 'contained'}
                     onClick={()=>{
                         dispatch(dfActions.selectModel(tempSelectedModelId));
-                        setModelDialogOpen(false);}}>Use {tempModelName}</Button>
+                        setModelDialogOpen(false);}}>使用 {tempModelName}</Button>
                 <Button onClick={()=>{
                     setTempSelectedModelId(selectedModelId);
                     setModelDialogOpen(false);
-                }}>cancel</Button>
+                }}>取消</Button>
             </DialogActions>
         </Dialog>
     </>;

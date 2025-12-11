@@ -12,6 +12,8 @@ logger = logging.getLogger(__name__)
 
 SYSTEM_PROMPT = '''You are a data exploration expert who suggests interesting questions to help users explore their datasets.
 
+**Language Rule: You MUST respond in Chinese (简体中文) for all explanations, descriptions, and communications.**
+
 Given a dataset (or a thread of datasets that have been explored), your task is to suggest 4 exploration questions (unless the user explicitly asks for the number of questions), that users can follow to gain insights from their data.
 * the user may provide you current explorations they have done, including:
     - a thread of exploration questions they have explored
@@ -58,6 +60,8 @@ data: {"type": "question", "text": ..., "goal": ..., "difficulty": ..., "tag": .
 '''
 
 SYSTEM_PROMPT_AGENT = '''You are a data exploration expert to help users explore their datasets.
+
+**Language Rule: You MUST respond in Chinese (简体中文) for all explanations, descriptions, and communications.**
 
 Given a dataset (or a thread of datasets that have been explored), your task is to suggest 4 exploration questions (unless the user explicitly asks for the number of questions), that users can follow to gain insights from their data.
 * the user may provide you current explorations they have done, including:

@@ -25,37 +25,37 @@ interface Feature {
 
 const features: Feature[] = [
     {
-        title: "Load (Almost) Any Data",
-        description: "Load structured data, connect to databases. Ask AI agents to extract and clean (small) ad-hoc data from screenshots, text blocks.",
+        title: "加载（几乎）任何数据",
+        description: "加载结构化数据，连接数据库。让AI智能体从截图、文本块中提取和清理临时数据。",
         media: "/feature-extract-data.mp4",
         mediaType: "video"
     },
     {
-        title: "Agent Mode",
-        description: "Vibe with your data. Hands-off and let agents automatically explore and visualize data from high-level goals.",
+        title: "智能体模式",
+        description: "与数据自由互动。放手让智能体根据高级目标自动探索和可视化数据。",
         media: "/feature-agent-mode.mp4",
         mediaType: "video"
     },
     {
-        title: "Interactive Control",
-        description: "Use UI interactions and natural language to precisely describe chart designs. Ask AI agents for recommendations. Use Data Threads to backtrack, explore new branches, or follow up.",
+        title: "交互式控制",
+        description: "使用界面交互和自然语言精确描述图表设计。向AI智能体寻求推荐。使用数据线程回溯、探索新分支或跟进。",
         media: "/feature-interactive-control.mp4",
         mediaType: "video"
     },
     {
-        title: "Verify & Share Insights",
-        description: "Interact with charts, inspect data, formulas, and code. Create reports to share insights grounded in your exploration.",
+        title: "验证与分享洞察",
+        description: "与图表交互，检查数据、公式和代码。创建报告，分享基于探索的洞察。",
         media: "/feature-generate-report.mp4",
         mediaType: "video"
     }
 ];
 
 const screenshots: {url: string, description: string}[] = [
-    {url: "/data-formulator-screenshot-v0.5.webp", description: "Explore consumer price trends from 2005 to 2025"},
-    {url: "/screenshot-movies-report.webp", description: "Report: Top directors by their revenue"},
-    {url: "/screenshot-renewable-energy.webp", description: "Renewable energy percentage by country"},
-    {url: '/screenshot-unemployment.webp', description: 'Report: Unemployment rate affected by 2008 financial crisis'},
-    {url: '/screenshot-claude-performance.webp', description: 'Compare Claude models\' performance on different tasks'},
+    {url: "/data-formulator-screenshot-v0.5.webp", description: "探索2005年至2025年消费者价格趋势"},
+    {url: "/screenshot-movies-report.webp", description: "报告：按收入排名的顶级导演"},
+    {url: "/screenshot-renewable-energy.webp", description: "各国可再生能源占比"},
+    {url: '/screenshot-unemployment.webp', description: '报告：2008年金融危机对失业率的影响'},
+    {url: '/screenshot-claude-performance.webp', description: '比较Claude模型在不同任务上的性能'},
 ];
 
 export const About: FC<{}> = function About({ }) {
@@ -129,33 +129,33 @@ export const About: FC<{}> = function About({ }) {
 
     let actionButtons = !serverConfig.PROJECT_FRONT_PAGE ? (
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mb: 4, flexWrap: 'wrap' }}>
-            <Button size="large" variant="contained" color="primary" 
+            <Button size="large" variant="contained" color="primary"
                 startIcon={<PrecisionManufacturingIcon sx={{ fontSize: '1rem' }} />}
                 href="/app"
-            >Start Exploration</Button>
+            >开始探索</Button>
         </Box>
     ) : (
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 4, flexWrap: 'wrap', '.MuiButton-root': { textTransform: 'none' } }}>
-            <Button size="large" variant="outlined" color="primary" 
+            <Button size="large" variant="outlined" color="primary"
                 startIcon={<YouTubeIcon sx={{ fontSize: '1rem', color: '#FF0000' }} />}
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.youtube.com/watch?v=GfTE2FLyMrs"
-            >What's New in v0.5?</Button>
-            <Button size="large" variant="outlined" color="primary" 
+            >v0.5 新功能</Button>
+            <Button size="large" variant="outlined" color="primary"
                 startIcon={<GitHubIcon sx={{ fontSize: '1rem', color: '#000000' }} />}
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://github.com/microsoft/data-formulator"
             >GitHub</Button>
             <Divider orientation="vertical" sx={{ mx: 1 }} flexItem />
-            <Button size="large" variant="outlined" color="primary" 
+            <Button size="large" variant="outlined" color="primary"
                 startIcon={<Box component="img" sx={{ width: 24, height: 24 }} alt="" src="/pip-logo.svg" />}
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://pypi.org/project/data-formulator/"
-            >Install Locally</Button>
-            <Button size="large" variant="outlined" color="primary" 
+            >本地安装</Button>
+            <Button size="large" variant="outlined" color="primary"
                 sx={{
                     animation: 'subtleGlow 2s ease-in-out infinite',
                     '@keyframes subtleGlow': {
@@ -173,9 +173,9 @@ export const About: FC<{}> = function About({ }) {
                 }}
                 startIcon={<GridViewIcon sx={{ fontSize: '1rem' }} />}
                 href="/app"
-            >Try Online Demo</Button>
+            >在线演示</Button>
             <Typography variant="caption" sx={{ mt: 1.5, color: 'text.secondary', fontStyle: 'italic' }}>
-                Psst — install locally for the full experience ✨. The online demo has limited features (at the moment).
+                提示 - 本地安装可获得完整体验 ✨。在线演示功能有限。
             </Typography>
         </Box>
     );
@@ -199,10 +199,10 @@ export const About: FC<{}> = function About({ }) {
                 <Box sx={{display: 'flex', mx: 'auto', mt: 4}}>
                     <Typography fontSize={84} sx={{ml: 2, letterSpacing: '0.05em'}}>{toolName}</Typography> 
                 </Box>
-                <Typography sx={{ 
-                    fontSize: 24, color: theme.palette.text.secondary, 
+                <Typography sx={{
+                    fontSize: 24, color: theme.palette.text.secondary,
                     textAlign: 'center', mb: 4}}>
-                    Explore data with visualizations, powered by AI agents. 
+                    AI智能体驱动的数据可视化探索工具
                 </Typography>
                 
                 {actionButtons}
@@ -455,42 +455,42 @@ export const About: FC<{}> = function About({ }) {
                 <Box sx={{ mt: 6, mx: 2 }}>
                     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <Typography variant="caption">
-                            How does Data Formulator handle your data?
+                            Data Formulator 如何处理您的数据？
                         </Typography>
-                        <Typography 
-                            variant="caption" 
+                        <Typography
+                            variant="caption"
                             sx={{ mt: 1, textAlign: 'left' }}
                         >
-                            <li><strong>Data Storage:</strong> Uploaded data (csv, xlsx, json, clipboard, messy data etc.) is stored in browser's local storage only</li>
-                            <li><strong>Data Processing:</strong> Local installation runs Python on your machine; online demo sends the data to server for data transformations (but not stored)</li>
-                            <li><strong>Database:</strong> Only available for locally installed Data Formulator (a DuckDB database file is created in temp directory to store data); not available in online demo</li>
-                            <li><strong>LLM Endpoints:</strong> Small data samples are sent to LLM endpoints along with the prompt. Use your trusted model provider if working with private data.</li>
+                            <li><strong>数据存储：</strong> 上传的数据（csv、xlsx、json、剪贴板、杂乱数据等）仅存储在浏览器本地存储中</li>
+                            <li><strong>数据处理：</strong> 本地安装在您的机器上运行Python；在线演示将数据发送到服务器进行数据转换（但不存储）</li>
+                            <li><strong>数据库：</strong> 仅适用于本地安装的Data Formulator（在临时目录中创建DuckDB数据库文件来存储数据）；在线演示不可用</li>
+                            <li><strong>LLM端点：</strong> 小数据样本与提示一起发送到LLM端点。如果处理私有数据，请使用您信任的模型提供商。</li>
                         </Typography>
                         <Typography variant="caption" sx={{ mt: 4, color: 'text.secondary' }}>
-                            Research Prototype from Microsoft Research
+                            微软研究院研究原型
                         </Typography>
                     </Box>
                 </Box>
             </Box>
 
             {/* Footer */}
-            <Box sx={{ color: 'text.secondary', display: 'flex', 
+            <Box sx={{ color: 'text.secondary', display: 'flex',
                         backgroundColor: 'rgba(255, 255, 255, 0.89)',
                         alignItems: 'center', justifyContent: 'center' }}>
-                <Button size="small" color="inherit" 
-                        sx={{ textTransform: 'none'}} 
-                        target="_blank" rel="noopener noreferrer" 
-                        href="https://www.microsoft.com/en-us/privacy/privacystatement">Privacy & Cookies</Button>
+                <Button size="small" color="inherit"
+                        sx={{ textTransform: 'none'}}
+                        target="_blank" rel="noopener noreferrer"
+                        href="https://www.microsoft.com/en-us/privacy/privacystatement">隐私与Cookie</Button>
                 <Divider orientation="vertical" variant="middle" flexItem sx={{ mx: 1 }} />
-                <Button size="small" color="inherit" 
-                        sx={{ textTransform: 'none'}} 
-                        target="_blank" rel="noopener noreferrer" 
-                        href="https://www.microsoft.com/en-us/legal/intellectualproperty/copyright">Terms of Use</Button>
+                <Button size="small" color="inherit"
+                        sx={{ textTransform: 'none'}}
+                        target="_blank" rel="noopener noreferrer"
+                        href="https://www.microsoft.com/en-us/legal/intellectualproperty/copyright">使用条款</Button>
                 <Divider orientation="vertical" variant="middle" flexItem sx={{ mx: 1 }} />
-                <Button size="small" color="inherit" 
-                        sx={{ textTransform: 'none'}} 
-                        target="_blank" rel="noopener noreferrer" 
-                        href="https://github.com/microsoft/data-formulator/issues">Contact Us</Button>
+                <Button size="small" color="inherit"
+                        sx={{ textTransform: 'none'}}
+                        target="_blank" rel="noopener noreferrer"
+                        href="https://github.com/microsoft/data-formulator/issues">联系我们</Button>
                 <Typography sx={{ display: 'inline', fontSize: '12px', ml: 1 }}> @ {new Date().getFullYear()}</Typography>
             </Box>
         </Box>)

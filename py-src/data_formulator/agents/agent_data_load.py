@@ -12,6 +12,8 @@ logger = logging.getLogger(__name__)
 
 
 SYSTEM_PROMPT = '''You are a data scientist to help user infer data types based off the table provided by the user.
+
+**Language Rule: You MUST respond in Chinese (简体中文) for all explanations, descriptions, and communications.**
 Given a dataset provided by the user, 
 1. suggest a descriptive name for the table if the table name is a generic name like table-6, the suggested name should best capture meaning of the table but also very concise.
     - if the table already have a descriptive name provided in the bracket (...), use it; if the provided name is not descriptive, suggest a new name.

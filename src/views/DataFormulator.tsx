@@ -70,7 +70,7 @@ export const DataFormulatorFC = ({ }) => {
             timestamp: Date.now(),
             type: 'info',
             component: 'data formulator',
-            value: `Loading example session: ${session.title}`,
+            value: `正在加载示例会话：${session.title}`,
         }));
         
         // Load the complete state from the JSON file
@@ -84,7 +84,7 @@ export const DataFormulatorFC = ({ }) => {
                     timestamp: Date.now(),
                     type: 'success',
                     component: 'data formulator',
-                    value: `Successfully loaded ${session.title}`,
+                    value: `成功加载 ${session.title}`,
                 }));
             })
             .catch(error => {
@@ -93,7 +93,7 @@ export const DataFormulatorFC = ({ }) => {
                     timestamp: Date.now(),
                     type: 'error',
                     component: 'data formulator',
-                    value: `Failed to load ${session.title}: ${error.message}`,
+                    value: `加载失败 ${session.title}：${error.message}`,
                 }));
             });
     };
@@ -234,23 +234,23 @@ export const DataFormulatorFC = ({ }) => {
         </Box>
     );
 
-    let footer = <Box sx={{ color: 'text.secondary', display: 'flex', 
+    let footer = <Box sx={{ color: 'text.secondary', display: 'flex',
             backgroundColor: 'rgba(255, 255, 255, 0.89)',
             alignItems: 'center', justifyContent: 'center' }}>
-        <Button size="small" color="inherit" 
-            sx={{ textTransform: 'none'}} 
-            target="_blank" rel="noopener noreferrer" 
-            href="https://www.microsoft.com/en-us/privacy/privacystatement">Privacy & Cookies</Button>
+        <Button size="small" color="inherit"
+            sx={{ textTransform: 'none'}}
+            target="_blank" rel="noopener noreferrer"
+            href="https://www.microsoft.com/en-us/privacy/privacystatement">隐私与Cookie</Button>
         <Divider orientation="vertical" variant="middle" flexItem sx={{ mx: 1 }} />
-        <Button size="small" color="inherit" 
-            sx={{ textTransform: 'none'}} 
-            target="_blank" rel="noopener noreferrer" 
-            href="https://www.microsoft.com/en-us/legal/intellectualproperty/copyright">Terms of Use</Button>
+        <Button size="small" color="inherit"
+            sx={{ textTransform: 'none'}}
+            target="_blank" rel="noopener noreferrer"
+            href="https://www.microsoft.com/en-us/legal/intellectualproperty/copyright">使用条款</Button>
         <Divider orientation="vertical" variant="middle" flexItem sx={{ mx: 1 }} />
-        <Button size="small" color="inherit" 
-            sx={{ textTransform: 'none'}} 
-            target="_blank" rel="noopener noreferrer" 
-            href="https://github.com/microsoft/data-formulator/issues">Contact Us</Button>
+        <Button size="small" color="inherit"
+            sx={{ textTransform: 'none'}}
+            target="_blank" rel="noopener noreferrer"
+            href="https://github.com/microsoft/data-formulator/issues">联系我们</Button>
         <Typography sx={{ display: 'inline', fontSize: '12px', ml: 1 }}> @ {new Date().getFullYear()}</Typography>
     </Box>
 
@@ -267,31 +267,31 @@ export const DataFormulatorFC = ({ }) => {
             <Box sx={{display: 'flex', mx: 'auto'}}>
                 <Typography fontSize={84} sx={{ml: 2, letterSpacing: '0.05em'}}>{toolName}</Typography> 
             </Box>
-            <Typography sx={{ 
-                fontSize: 24, color: theme.palette.text.secondary, 
+            <Typography sx={{
+                fontSize: 24, color: theme.palette.text.secondary,
                 textAlign: 'center', mb: 4}}>
-                Explore data with visualizations, powered by AI agents. 
+                AI智能体驱动的数据可视化探索工具
             </Typography>
             <Box sx={{my: 4}}>
-                <Typography sx={{ 
-                    maxWidth: 1100, fontSize: 28, color: alpha(theme.palette.text.primary, 0.8), 
+                <Typography sx={{
+                    maxWidth: 1100, fontSize: 28, color: alpha(theme.palette.text.primary, 0.8),
                     '& span': { textDecoration: 'underline', textUnderlineOffset: '0.2em', cursor: 'pointer' }}}>
-                    To begin, 
-                    <DataLoadingChatDialog buttonElement={<span>extract</span>}/>{' '}
-                    data from images or text documents, load {' '}
-                    <DatasetSelectionDialog buttonElement={<span>examples</span>}/>, 
-                    upload data from{' '}
-                    <TableCopyDialogV2 buttonElement={<span>clipboard</span>} disabled={false}/> or {' '}
-                    <TableUploadDialog buttonElement={<span>files</span>} disabled={false}/>, 
-                    
-                    or connect to a{' '}
-                    <DBTableSelectionDialog buttonElement={<span>database</span>}/>.
+                    开始使用：从图片或文档中
+                    <DataLoadingChatDialog buttonElement={<span>提取</span>}/>{' '}
+                    数据，加载{' '}
+                    <DatasetSelectionDialog buttonElement={<span>示例</span>}/>，
+                    从{' '}
+                    <TableCopyDialogV2 buttonElement={<span>剪贴板</span>} disabled={false}/>或{' '}
+                    <TableUploadDialog buttonElement={<span>文件</span>} disabled={false}/>上传数据，
+
+                    或连接{' '}
+                    <DBTableSelectionDialog buttonElement={<span>数据库</span>}/>。
                 </Typography>
             </Box>
             <Box sx={{mt: 4}}>
                 <Divider sx={{width: '200px', mx: 'auto', mb: 3, fontSize: '1.2rem'}}>
                     <Typography sx={{ color: 'text.secondary' }}>
-                        demos
+                        演示
                     </Typography>
                 </Divider>
                 <Box sx={{
@@ -336,9 +336,9 @@ export const DataFormulatorFC = ({ }) => {
                                 {toolName}
                             </Typography>
                             <Typography  variant="h4" sx={{mt: 3, fontSize: 28, letterSpacing: '0.02em'}}>
-                                First, let's <ModelSelectionButton />
+                                首先，让我们 <ModelSelectionButton />
                             </Typography>
-                            <Typography  color="text.secondary" variant="body1" sx={{mt: 2, width: 600}}>💡 Models with strong code generation capabilities (e.g., gpt-5, claude-sonnet-4-5) provide best experience with Data Formulator.</Typography>
+                            <Typography  color="text.secondary" variant="body1" sx={{mt: 2, width: 600}}>💡 具有强大代码生成能力的模型（如gpt-5、claude-sonnet-4-5）在Data Formulator中体验最佳。</Typography>
                         </Box>
                         {footer}
                     </Box>

@@ -84,8 +84,8 @@ export const ConceptGroup: FC<{groupName: string, fields: FieldItem[]}> = functi
                             {expanded ? <ExpandMoreIcon sx={{fontSize: "12px"}} /> : <ExpandLessIcon sx={{fontSize: "12px"}} />}
                         </Typography>}
                     </Typography>
-                    {groupName === "new fields" && (
-                        <Tooltip title="clean up unused fields">
+                    {(groupName === "new fields" || groupName === "新字段") && (
+                        <Tooltip title="清理未使用的字段">
                             <IconButton
                                 size="small"
                                 onClick={(e) => {
@@ -162,7 +162,7 @@ export const ConceptGroup: FC<{groupName: string, fields: FieldItem[]}> = functi
                     }
                 }}
             >
-                {`... show all ${fields.length} ${groupName} fields ▾`}
+                {`... 显示全部 ${fields.length} 个${groupName}字段 ▾`}
             </Button>
         )}
     </Box>;
@@ -195,7 +195,7 @@ export const ConceptShelf: FC<ConceptShelfProps> = function ConceptShelf() {
         }}>
             <Box sx={{my: 0.25}}>
                 <Typography className="view-title" component="h2" sx={{textWrap: "nowrap"}}>
-                    Data Fields
+                    数据字段
                 </Typography>
             </Box>
             <Box className="data-fields-group">
@@ -203,7 +203,7 @@ export const ConceptShelf: FC<ConceptShelfProps> = function ConceptShelf() {
                     <Box sx={{display: "block", width: "100%"}}>
                         <Divider orientation="horizontal" textAlign="left">
                             <Typography component="h2" sx={{fontSize: "10px"}} color="text.secondary">
-                                field operators
+                                字段运算符
                             </Typography>
                         </Divider>
                     </Box>
@@ -246,7 +246,7 @@ export const ConceptShelf: FC<ConceptShelfProps> = function ConceptShelf() {
         overflow: 'hidden',
         position: 'relative',
     }}>
-        <Tooltip placement="left" title={conceptPanelOpen ? "hide concept panel" : "open concept panel"}>
+        <Tooltip placement="left" title={conceptPanelOpen ? "隐藏概念面板" : "打开概念面板"}>
             <IconButton 
                 color="primary"
                 sx={conceptPanelOpen ? {

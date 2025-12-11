@@ -268,7 +268,7 @@ export const ReportView: FC = () => {
             // Find the report content element
             const reportElement = document.querySelector('[data-report-content]') as HTMLElement;
             if (!reportElement) {
-                showMessage('Could not find report content to capture', 'error');
+                showMessage('找不到要捕获的报告内容', 'error');
                 return;
             }
 
@@ -289,7 +289,7 @@ export const ReportView: FC = () => {
             // Convert canvas to blob
             canvas.toBlob((blob: Blob | null) => {
                 if (!blob) {
-                    showMessage('Failed to generate image', 'error');
+                    showMessage('生成图片失败', 'error');
                     return;
                 }
 
@@ -300,20 +300,20 @@ export const ReportView: FC = () => {
                             'image/png': blob
                         })
                     ]).then(() => {
-                        showMessage('Report image copied to clipboard! You can now paste it anywhere to share.');
+                        showMessage('报告图片已复制到剪贴板！您现在可以粘贴到任何地方分享。');
                         setShareButtonSuccess(true);
                         setTimeout(() => setShareButtonSuccess(false), 2000);
                     }).catch(() => {
-                        showMessage('Failed to copy to clipboard. Your browser may not support this feature.', 'error');
+                        showMessage('复制到剪贴板失败。您的浏览器可能不支持此功能。', 'error');
                     });
                 } else {
-                    showMessage('Clipboard API not supported in your browser. Please use a modern browser.', 'error');
+                    showMessage('您的浏览器不支持剪贴板API。请使用现代浏览器。', 'error');
                 }
             }, 'image/png', 0.95);
 
         } catch (error) {
             console.error('Error generating report image:', error);
-            showMessage('Failed to generate report image. Please try again.', 'error');
+            showMessage('生成报告图片失败。请重试。', 'error');
         }
     };
 
@@ -593,7 +593,7 @@ export const ReportView: FC = () => {
 
     const generateReport = async () => {
         if (selectedChartIds.size === 0) {
-            setError('Please select at least one chart');
+            setError('请至少选择一个图表');
             return;
         }
 
@@ -609,7 +609,7 @@ export const ReportView: FC = () => {
             let model = models.find(m => m.id == selectedModelId);
 
             if (!model) {
-                throw new Error('No model selected');
+                throw new Error('未选择模型');
             }
 
             const inputTables = tables.filter(t => t.anchored).map(table => ({
@@ -667,12 +667,12 @@ export const ReportView: FC = () => {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to generate report');
+                throw new Error('生成报告失败');
             }
 
             const reader = response.body?.getReader();
             if (!reader) {
-                throw new Error('No response body');
+                throw new Error('无响应内容');
             }
 
             const decoder = new TextDecoder();
@@ -757,7 +757,7 @@ export const ReportView: FC = () => {
                             sx={{ textTransform: 'none' }}
                             startIcon={<ArrowBackIcon />}
                         >
-                            back to explore
+                            返回探索
                         </Button>
                         <Divider orientation="vertical" sx={{ mx: 1 }} flexItem />
                         <Button
@@ -768,7 +768,7 @@ export const ReportView: FC = () => {
                             sx={{ textTransform: 'none' }}
                             endIcon={<ArrowForwardIcon />}
                         >
-                            view reports
+                            查看报告
                         </Button>
                     </Box>
                     {/* Centered Top Bar */}
@@ -804,7 +804,7 @@ export const ReportView: FC = () => {
                         >
                             {/* Natural Flow */}
                             <Typography variant="body2" color="text.primary" sx={{ fontWeight: 500 }}>
-                                Create a
+                                创建
                             </Typography>
                             
                             <ToggleButtonGroup
@@ -832,10 +832,10 @@ export const ReportView: FC = () => {
                                 }}
                             >
                                 {[
-                                    { value: 'short note', label: 'short note' },
-                                    { value: 'blog post', label: 'blog post' },
-                                    { value: 'social post', label: 'social post' },
-                                    { value: 'executive summary', label: 'executive summary' },
+                                    { value: 'short note', label: '简短笔记' },
+                                    { value: 'blog post', label: '博客文章' },
+                                    { value: 'social post', label: '社交帖子' },
+                                    { value: 'executive summary', label: '执行摘要' },
                                 ].map((option) => (
                                     <ToggleButton 
                                         key={option.value}
@@ -854,7 +854,7 @@ export const ReportView: FC = () => {
                             </ToggleButtonGroup>
 
                             <Typography variant="body2" color="text.primary" sx={{ fontWeight: 500 }}>
-                                from
+                                基于
                             </Typography>
                             
                             <Typography variant="body2" 
@@ -863,7 +863,7 @@ export const ReportView: FC = () => {
                             </Typography>
                             
                             <Typography variant="body2" color="text.primary" sx={{ fontWeight: 500 }}>
-                                {selectedChartIds.size <= 1 ? 'chart' : 'charts'}
+                                个图表
                             </Typography>
 
                             {/* Generate Button */}
@@ -884,7 +884,7 @@ export const ReportView: FC = () => {
                                 }}
                                 startIcon={isGenerating ? <CircularProgress size={14} /> : <EditIcon sx={{ fontSize: 16 }} />}
                             >
-                                {isGenerating ? 'composing...' : 'compose'}
+                                {isGenerating ? '正在生成...' : '生成'}
                             </Button>
                         </Paper>
                     </Box>
@@ -898,13 +898,13 @@ export const ReportView: FC = () => {
 
                         {sortedCharts.length === 0 ? (
                             <Typography color="text.secondary">
-                                No charts available. Create some visualizations first.
+                                暂无可用图表。请先创建一些可视化。
                             </Typography>
                         ) : isLoadingPreviews ? (
                             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', py: 4 }}>
                                 <CircularProgress size={18} sx={{ color: 'text.secondary' }} />
                                 <Typography sx={{ ml: 2 }} color="text.secondary">
-                                    loading chart previews...
+                                    正在加载图表预览...
                                 </Typography>
                             </Box>
                         ) : (() => {
@@ -920,7 +920,7 @@ export const ReportView: FC = () => {
                             if (availableCharts.length === 0) {
                                 return (
                                     <Typography color="text.secondary">
-                                        No available charts to display. Charts may still be loading or unavailable.
+                                        没有可显示的图表。图表可能仍在加载或不可用。
                                     </Typography>
                                 );
                             }
@@ -1000,10 +1000,10 @@ export const ReportView: FC = () => {
                             sx={{ textTransform: 'none' }}
                             onClick={() => setMode('compose')}
                         >
-                            create a new report
+                            创建新报告
                         </Button>
                         <Typography variant="body2" color="text.secondary">
-                            AI generated the post from the selected charts, and it could be inaccurate!
+                            AI从选定的图表生成了这篇文章，内容可能不准确！
                         </Typography>
                     </Box>
                     <Box sx={{ flex: 1, display: 'flex', overflow: 'hidden', position: 'relative' }}>
@@ -1034,8 +1034,8 @@ export const ReportView: FC = () => {
                                     py: 1,
                                     px: 2,
                                 }}>
-                                    {hideTableOfContents ? <ExpandMoreIcon sx={{ fontSize: 16, mr: 1 }} /> 
-                                    : <ExpandLessIcon sx={{ fontSize: 16, mr: 1 }} /> } {hideTableOfContents ? 'show all reports' : 'reports'}
+                                    {hideTableOfContents ? <ExpandMoreIcon sx={{ fontSize: 16, mr: 1 }} />
+                                    : <ExpandLessIcon sx={{ fontSize: 16, mr: 1 }} /> } {hideTableOfContents ? '显示所有报告' : '报告'}
                                 </Button> 
                                 <Collapse in={!hideTableOfContents}>{allGeneratedReports.map((report) => (
                                     <Box key={report.id} sx={{ position: 'relative' }}>
@@ -1082,7 +1082,7 @@ export const ReportView: FC = () => {
                                                 </Typography>
                                             </Box>
                                         </Button>
-                                        <Tooltip title="Delete report">
+                                        <Tooltip title="删除报告">
                                             <IconButton
                                                 size="small"
                                                 disabled={isGenerating}
@@ -1114,7 +1114,7 @@ export const ReportView: FC = () => {
                             {/* Action Buttons */}
                             {currentReportId && (
                                 <Box sx={{ position: 'absolute', top: 16, right: 16, zIndex: 10, display: 'flex', gap: 1 }}>
-                                    <Tooltip title="Create Chartifact report">
+                                    <Tooltip title="创建Chartifact报告">
                                         <Button
                                             variant="contained"
                                             size="small"
@@ -1140,10 +1140,10 @@ export const ReportView: FC = () => {
                                             }}
                                             startIcon={<CreateChartifact />}
                                         >
-                                            Create Chartifact
+                                            创建Chartifact
                                         </Button>
                                     </Tooltip>
-                                    <Tooltip title="Share report as image">
+                                    <Tooltip title="分享报告为图片">
                                         <Button
                                             variant="contained"
                                             size="small"
@@ -1169,7 +1169,7 @@ export const ReportView: FC = () => {
                                                 },
                                             }}
                                         >
-                                            {shareButtonSuccess ? 'Copied!' : 'Share Image'}
+                                            {shareButtonSuccess ? '已复制!' : '分享图片'}
                                         </Button>
                                     </Tooltip>
                                 </Box>
@@ -1238,7 +1238,7 @@ export const ReportView: FC = () => {
                                         fontSize: '0.75rem',
                                         color: '#666'
                                     }}>
-                                        created with AI using{' '}
+                                        由AI创建，使用{' '}
                                         <Link 
                                             href="https://github.com/microsoft/data-formulator" 
                                             target="_blank" 

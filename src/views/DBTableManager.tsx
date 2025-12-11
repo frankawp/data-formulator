@@ -78,7 +78,7 @@ export const handleDBDownload = async (sessionId: string) => {
         // Check if the response is ok
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.error || 'Failed to download database file');
+            throw new Error(errorData.error || '下载数据库文件失败');
         }
 
         // Get the blob directly from response
@@ -166,14 +166,14 @@ export class TableStatisticsView extends React.Component<TableStatisticsViewProp
                     <Table size="small" stickyHeader>
                         <TableHead>
                             <TableRow>
-                                <TableCell sx={{...headerCellStyle, backgroundColor: "#f7f7f7", fontWeight: "bold"}}>Column</TableCell>
-                                <TableCell sx={headerCellStyle}>Type</TableCell>
-                                <TableCell align="right" sx={headerCellStyle}>Count</TableCell>
-                                <TableCell align="right" sx={headerCellStyle}>Unique</TableCell>
-                                <TableCell align="right" sx={headerCellStyle}>Null</TableCell>
-                                <TableCell align="right" sx={headerCellStyle}>Min</TableCell>
-                                <TableCell align="right" sx={headerCellStyle}>Max</TableCell>
-                                <TableCell align="right" sx={headerCellStyle}>Avg</TableCell>
+                                <TableCell sx={{...headerCellStyle, backgroundColor: "#f7f7f7", fontWeight: "bold"}}>列</TableCell>
+                                <TableCell sx={headerCellStyle}>类型</TableCell>
+                                <TableCell align="right" sx={headerCellStyle}>计数</TableCell>
+                                <TableCell align="right" sx={headerCellStyle}>唯一值</TableCell>
+                                <TableCell align="right" sx={headerCellStyle}>空值</TableCell>
+                                <TableCell align="right" sx={headerCellStyle}>最小</TableCell>
+                                <TableCell align="right" sx={headerCellStyle}>最大</TableCell>
+                                <TableCell align="right" sx={headerCellStyle}>平均</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -295,7 +295,7 @@ export const DBTableSelectionDialog: React.FC<{
                 setDbTables(data.tables);
             }
         } catch (error) {
-            setSystemMessage('Failed to fetch tables, please check if the server is running', "error");
+            setSystemMessage('获取表失败，请检查服务器是否正在运行', "error");
         }
     };
 
@@ -338,10 +338,10 @@ export const DBTableSelectionDialog: React.FC<{
                 fetchTables();  // Refresh table list
             } else {
                 // Handle error from server
-                setSystemMessage(data.error || 'Failed to upload table', "error");
+                setSystemMessage(data.error || '上传表失败', "error");
             }
         } catch (error) {
-            setSystemMessage('Failed to upload table, please check if the server is running', "error");
+            setSystemMessage('上传表失败，请检查服务器是否正在运行', "error");
         } finally {
             setIsUploading(false);
         }
@@ -364,14 +364,14 @@ export const DBTableSelectionDialog: React.FC<{
             const data = await response.json();
             if (data.status === 'success') {
                 if (data.is_renamed) {
-                    setSystemMessage(`Table ${data.original_name} already exists. Renamed to ${data.table_name}`, "warning");
+                    setSystemMessage(`表 ${data.original_name} 已存在。已重命名为 ${data.table_name}`, "warning");
                 } 
                 fetchTables();  // Refresh table list
             } else {
-                setSystemMessage(data.error || 'Failed to upload table', "error");
+                setSystemMessage(data.error || '上传表失败', "error");
             }
         } catch (error) {
-            setSystemMessage('Failed to upload table, please check if the server is running', "error");
+            setSystemMessage('上传表失败，请检查服务器是否正在运行', "error");
         } finally {
             setIsUploading(false);
             // Clear the file input value to allow uploading the same file again
@@ -390,10 +390,10 @@ export const DBTableSelectionDialog: React.FC<{
             if (data.status === 'success') {
                 fetchTables();
             } else {
-                setSystemMessage(data.error || 'Failed to reset database', "error");
+                setSystemMessage(data.error || '重置数据库失败', "error");
             }
         } catch (error) {
-            setSystemMessage('Failed to reset database', "error");
+            setSystemMessage('重置数据库失败', "error");
         }
     }
 
@@ -401,7 +401,7 @@ export const DBTableSelectionDialog: React.FC<{
         let unreferencedViews = dbTables.filter(t => t.view_source !== null && t.view_source !== undefined && !tables.some(t2 => t2.id === t.name));
 
         if (unreferencedViews.length > 0) {
-            if (confirm(`Are you sure you want to delete the following unreferenced derived views? \n${unreferencedViews.map(v => `- ${v.name}`).join("\n")}`)) {
+            if (confirm(`确定要删除以下未引用的派生视图吗？\n${unreferencedViews.map(v => `- ${v.name}`).join("\n")}`)) {
                 let deletedViews = [];
                 for (let view of unreferencedViews) {
                     try {
@@ -416,14 +416,14 @@ export const DBTableSelectionDialog: React.FC<{
                         if (data.status === 'success') {
                             deletedViews.push(view.name);
                         } else {
-                            setSystemMessage(data.error || 'Failed to delete table', "error");
+                            setSystemMessage(data.error || '删除表失败', "error");
                         }
                     } catch (error) {
-                        setSystemMessage('Failed to delete table, please check if the server is running', "error");
+                        setSystemMessage('删除表失败，请检查服务器是否正在运行', "error");
                     }
                 }
                 if (deletedViews.length > 0) {
-                    setSystemMessage(`Deleted ${deletedViews.length} unreferenced derived views: ${deletedViews.join(", ")}`, "success");
+                    setSystemMessage(`已删除 ${deletedViews.length} 个未引用的派生视图：${deletedViews.join(", ")}`, "success");
                 }
                 fetchTables();
                 setSelectedTabKey(dbTables.length > 0 ? dbTables[0].name : "");
@@ -434,7 +434,7 @@ export const DBTableSelectionDialog: React.FC<{
     // Delete table
     const handleDropTable = async (tableName: string) => {
         if (tables.some(t => t.id === tableName)) {
-            if (!confirm(`Are you sure you want to delete ${tableName}? \n ${tableName} is currently loaded into the data formulator and will be removed from the database.`)) return;
+            if (!confirm(`确定要删除 ${tableName} 吗？\n ${tableName} 当前已加载到数据格式化程序中，将从数据库中删除。`)) return;
         }
 
         try {
@@ -450,10 +450,10 @@ export const DBTableSelectionDialog: React.FC<{
                 fetchTables();
                 setSelectedTabKey(dbTables.length > 0 ? dbTables[0].name : "");
             } else {
-                setSystemMessage(data.error || 'Failed to delete table', "error");
+                setSystemMessage(data.error || '删除表失败', "error");
             }
         } catch (error) {
-            setSystemMessage('Failed to delete table, please check if the server is running', "error");
+            setSystemMessage('删除表失败，请检查服务器是否正在运行', "error");
         }
     };
 
@@ -483,7 +483,7 @@ export const DBTableSelectionDialog: React.FC<{
             }
         } catch (error) {
             console.error('Failed to analyze table data:', error);
-            setSystemMessage('Failed to analyze table data, please check if the server is running', "error");
+            setSystemMessage('分析表数据失败，请检查服务器是否正在运行', "error");
         }
     };
 
@@ -556,7 +556,7 @@ export const DBTableSelectionDialog: React.FC<{
     }, [tableDialogOpen]);
 
     let importButton = (buttonElement: React.ReactNode) => {
-        return <Tooltip title="import a duckdb .db file to the local database">
+        return <Tooltip title="导入DuckDB .db文件到本地数据库">
             <span>
                 <Button variant="text" sx={{fontSize: "inherit", minWidth: "auto"}} component="label" disabled={isUploading}>
                     {buttonElement}
@@ -566,24 +566,24 @@ export const DBTableSelectionDialog: React.FC<{
         </Tooltip>
     }
 
-    let exportButton = 
-        <Tooltip title="save the local database to a duckdb .db file">
+    let exportButton =
+        <Tooltip title="保存本地数据库为DuckDB .db文件">
             <span>
                 <Button variant="text" size="small" onClick={() => {
                     handleDBDownload(sessionId ?? '')
                         .catch(error => {
                             console.error('Failed to download database:', error);
-                            setSystemMessage('Failed to download database file', "error");
+                            setSystemMessage('下载数据库文件失败', "error");
                         });
                 }} disabled={isUploading || dbTables.length === 0}>
-                    export
+                    导出
                 </Button>
             </span>
         </Tooltip>
 
     function uploadFileButton(element: React.ReactNode, buttonSx?: SxProps) {
         return (
-            <Tooltip title="upload a csv/tsv file to the local database">
+            <Tooltip title="上传CSV/TSV文件到本地数据库">
                 <span>
                     <Button
                         variant="text"
@@ -615,7 +615,7 @@ export const DBTableSelectionDialog: React.FC<{
                 flexGrow: 1,
                 fontSize: "0.75rem",
             }}>
-                Data Connectors
+                数据连接器
             </Typography>
         </Box>
         
@@ -665,9 +665,9 @@ export const DBTableSelectionDialog: React.FC<{
                 flexGrow: 1,
                 fontSize: "0.75rem",
             }}>
-                Data Tables
+                数据表
             </Typography>
-            <Tooltip title="refresh the table list">
+            <Tooltip title="刷新表列表">
                 <IconButton size="small" color="primary" sx={{
                     '&:hover': {
                         transform: 'rotate(180deg)',
@@ -683,7 +683,7 @@ export const DBTableSelectionDialog: React.FC<{
         
         {dbTables.length == 0 && 
             <Typography variant="caption" sx={{color: "lightgray", px: 2, py: 0.5, fontStyle: "italic"}}>
-                no tables available
+                暂无可用表
             </Typography>
         }
         
@@ -733,9 +733,9 @@ export const DBTableSelectionDialog: React.FC<{
                         flexGrow: 1,
                         fontSize: "0.75rem",
                     }}>
-                        Derived Views
+                        派生视图
                     </Typography>
-                    <Tooltip title="clean up unreferenced derived views">
+                    <Tooltip title="清理未引用的派生视图">
                         <IconButton size="small" color="primary" sx={{
                             '&:hover': {
                                 transform: 'rotate(180deg)',
@@ -798,14 +798,14 @@ export const DBTableSelectionDialog: React.FC<{
         {/* Empty state */}
         {selectedTabKey === '' && (
             <Typography variant="caption" sx={{color: "text.secondary", px: 1}}>
-                The database is empty, refresh the table list or import some data to get started.
+                数据库为空，请刷新表列表或导入一些数据开始使用。
             </Typography>
         )}
         
         {/* File upload */}
         {selectedTabKey === 'dataLoader:file upload' && (
             <Box>
-                {uploadFileButton(<Typography component="span" fontSize={18} textTransform="none">{isUploading ? 'uploading...' : 'upload a csv/tsv file to the local database'}</Typography>)} 
+                {uploadFileButton(<Typography component="span" fontSize={18} textTransform="none">{isUploading ? '正在上传...' : '上传CSV/TSV文件到本地数据库'}</Typography>)} 
             </Box>
         )}
         
@@ -849,12 +849,12 @@ export const DBTableSelectionDialog: React.FC<{
                     <Paper variant="outlined">
                         <Box sx={{ px: 1, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(0,0,0,0.1)' }}>
                             <Typography variant="caption" sx={{  }}>
-                                {showingAnalysis ? "column stats for " : "sample data from "} 
+                                {showingAnalysis ? "列统计来自 " : "样本数据来自 "} 
                                 <Typography component="span" sx={{fontSize: 12, fontWeight: "bold"}}>
                                     {currentTable.name}
                                 </Typography>
                                 <Typography component="span" sx={{ml: 1, fontSize: 10, color: "text.secondary"}}>
-                                    ({currentTable.columns.length} columns × {currentTable.row_count} rows)
+                                    ({currentTable.columns.length} 列 × {currentTable.row_count} 行)
                                 </Typography>
                             </Typography>
                             <Box sx={{ marginLeft: 'auto', display: 'flex', gap: 1 }}>
@@ -865,7 +865,7 @@ export const DBTableSelectionDialog: React.FC<{
                                     startIcon={<AnalyticsIcon fontSize="small" />}
                                     sx={{textTransform: "none"}}
                                 >
-                                    {showingAnalysis ? "show data samples" : "show column stats"}
+                                    {showingAnalysis ? "显示数据样本" : "显示列统计"}
                                 </Button>
                                 <IconButton 
                                     size="small" 
@@ -912,7 +912,7 @@ export const DBTableSelectionDialog: React.FC<{
                                 setTableDialogOpen(false);
                             }
                         }}>
-                        Load Table
+                        加载表
                     </Button>
                 </Box>
             );
@@ -937,10 +937,10 @@ export const DBTableSelectionDialog: React.FC<{
                     {tableSelectionPanel}
                 </Box>
                 <Typography variant="caption" sx={{ mr: 'auto', mt: 'auto', mb: 1, textWrap: 'wrap', '& .MuiButton-root': { minWidth: 'auto',  textTransform: "none" } }}>
-                    {importButton(<Typography component="span" fontSize="inherit">Import</Typography>)}
+                    {importButton(<Typography component="span" fontSize="inherit">导入</Typography>)}
                     ,
                     {exportButton}
-                    or
+                    或
                     <Button
                         variant="text" size="small"
                         color="warning"
@@ -948,9 +948,9 @@ export const DBTableSelectionDialog: React.FC<{
                         disabled={isUploading}
                         //endIcon={<RestartAltIcon />}
                     >
-                        reset
+                        重置
                     </Button>
-                    the backend database
+                    后端数据库
                 </Typography>
             </Box>
             {/* Content area - using conditional rendering instead of TabPanel */}
@@ -963,8 +963,8 @@ export const DBTableSelectionDialog: React.FC<{
                 <Tooltip 
                     title={serverConfig.DISABLE_DATABASE ? (
                         <Typography sx={{ fontSize: '11px' }}>
-                            Install Data Formulator locally to use database. <br />
-                            Link: <Link 
+                            本地安装Data Formulator以使用数据库。<br />
+                            链接：<Link 
                                 href="https://github.com/microsoft/data-formulator" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
@@ -994,7 +994,7 @@ export const DBTableSelectionDialog: React.FC<{
                 sx={{ '& .MuiDialog-paper': { maxWidth: '100%', maxHeight: 800, minWidth: 800 } }}
             >
                 <DialogTitle sx={{display: "flex" }} >
-                    Database
+                    数据库
                     <IconButton
                         sx={{marginLeft: "auto"}}
                         edge="start"
@@ -1081,8 +1081,8 @@ export const DataLoaderForm: React.FC<{
                     }
                 }}}
             >
-                <ToggleButton value="view tables">View Tables</ToggleButton>
-                <ToggleButton value="query">Query Data</ToggleButton>
+                <ToggleButton value="view tables">查看表</ToggleButton>
+                <ToggleButton value="query">查询数据</ToggleButton>
             </ToggleButtonGroup>
             <Typography variant="body2" sx={{mb: 1,}}></Typography>
         </Box>,
@@ -1183,18 +1183,18 @@ export const DataLoaderForm: React.FC<{
                             const errors = results.filter(r => r.status !== "success");
                             if (errors.length === 0) {
                                 setSelectedTables(new Set());
-                                onFinish("success", `Successfully imported ${tablesToImport.length} table(s)`, tablesToImport);
+                                onFinish("success", `成功导入 ${tablesToImport.length} 个表`, tablesToImport);
                             } else {
-                                onFinish("error", `Failed to import some tables: ${errors.map(e => e.error).join(", ")}`);
+                                onFinish("error", `部分表导入失败：${errors.map(e => e.error).join(", ")}`);
                             }
                         })
                         .catch(error => {
                             console.error('Failed to ingest data:', error);
-                            onFinish("error", `Failed to ingest data: ${error}`);
+                            onFinish("error", `数据导入失败：${error}`);
                         });
                 }}
             >
-                Import Selected ({selectedTables.size})
+                导入已选 ({selectedTables.size})
             </Button>
         </Box>,
         mode === "query" && <DataQueryForm 
@@ -1213,7 +1213,7 @@ export const DataLoaderForm: React.FC<{
                 <CircularProgress size={20} />
             </Box>}
             <Typography variant="body2" sx={{}}>
-                Data Connector (<Typography component="span" sx={{color: "secondary.main", fontWeight: "bold"}}>{dataLoaderType}</Typography>)
+                数据连接器（<Typography component="span" sx={{color: "secondary.main", fontWeight: "bold"}}>{dataLoaderType}</Typography>）
             </Typography>
             <Box sx={{display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 1, ml: 4, mt: 2}}>
                 {paramDefs.map((paramDef) => (
@@ -1259,9 +1259,9 @@ export const DataLoaderForm: React.FC<{
                     variant="standard"
                     label={<Box sx={{display: "flex", flexDirection: "row", alignItems: "center", gap: 0.5}}>
                         <SearchIcon sx={{ fontSize: 16, color: theme.palette.secondary.main }} />
-                        table filter
+                        表过滤器
                     </Box>}
-                    placeholder="load only tables containing keywords"
+                    placeholder="仅加载包含关键字的表"
                     value={tableFilter}
                     onChange={(event) => setTableFilter(event.target.value)}
                     slotProps={{
@@ -1294,16 +1294,16 @@ export const DataLoaderForm: React.FC<{
                                 })));
                             } else {
                                 console.error('Failed to fetch data loader tables: {}', data.message);
-                                onFinish("error", `Failed to fetch data loader tables: ${data.message}`);
+                                onFinish("error", `获取数据加载器表失败：${data.message}`);
                             }
                             setIsConnecting(false);
                         })
                         .catch(error => {
-                            onFinish("error", `Failed to fetch data loader tables, please check the server is running`);
+                            onFinish("error", `获取数据加载器表失败，请检查服务器是否正在运行`);
                             setIsConnecting(false);
                         });
                     }}>
-                        {Object.keys(tableMetadata).length > 0 ? "refresh" : "connect"} {tableFilter.trim() ? "with filter" : ""}
+                        {Object.keys(tableMetadata).length > 0 ? "刷新" : "连接"} {tableFilter.trim() ? "(带过滤)" : ""}
                     </Button>
                     <Button 
                         disabled={Object.keys(tableMetadata).length === 0}
@@ -1311,7 +1311,7 @@ export const DataLoaderForm: React.FC<{
                             setTableMetadata({});
                             setTableFilter("");
                         }}>
-                        disconnect
+                        断开连接
                     </Button>
                 </ButtonGroup>}
 
@@ -1324,7 +1324,7 @@ export const DataLoaderForm: React.FC<{
                 size="small" 
                 sx={{textTransform: "none", height: 32, mt: 1}}
                 onClick={() => setDisplayAuthInstructions(!displayAuthInstructions)}>
-                {displayAuthInstructions ? "hide" : "show"} authentication instructions
+                {displayAuthInstructions ? "隐藏" : "显示"}身份验证说明
             </Button>
             {<Collapse in={displayAuthInstructions} timeout="auto" unmountOnExit>
                 <Paper sx={{px: 1, py: 0.5, maxHeight: 300, overflowY: "auto"}}>
@@ -1354,7 +1354,7 @@ export const DataQueryForm: React.FC<{
 
     const [waiting, setWaiting] = useState(false);
 
-    const [query, setQuery] = useState("-- query the data source / describe your goal and ask AI to help you write the query\n");
+    const [query, setQuery] = useState("-- 查询数据源 / 描述您的目标并请求AI帮助您编写查询\n");
     const [queryResult, setQueryResult] = useState<{
         status: string,
         message: string,
@@ -1394,7 +1394,7 @@ export const DataQueryForm: React.FC<{
         })
         .catch(error => {
             setWaiting(false);
-            onFinish("error", `Failed to complete query please try again.`);
+            onFinish("error", `完成查询失败，请重试。`);
         });
     }
 
@@ -1418,7 +1418,7 @@ export const DataQueryForm: React.FC<{
             if (data.status === "success") {
                 setQueryResult({
                     status: "success",
-                    message: "Data loaded successfully",
+                    message: "数据加载成功",
                     sample: data.sample,
                     code: query
                 });
@@ -1437,7 +1437,7 @@ export const DataQueryForm: React.FC<{
             setWaiting(false);
             setQueryResult({
                 status: "error",
-                message: `Failed to view query sample, please try again.`,
+                message: `查看查询样本失败，请重试。`,
                 sample: [],
                 code: query
             });
@@ -1462,14 +1462,14 @@ export const DataQueryForm: React.FC<{
         .then(data => {
             setWaiting(false);
             if (data.status === "success") {
-                onFinish("success", "Data imported successfully");
+                onFinish("success", "数据导入成功");
             } else {
                 onFinish("error", data.reasoning);
             }
         })
         .catch(error => {
             setWaiting(false);
-            onFinish("error", `Failed to import data, please try again.`);
+            onFinish("error", `数据导入失败，请重试。`);
         });
     }
 
@@ -1483,11 +1483,11 @@ export const DataQueryForm: React.FC<{
                     setQueryResult(undefined);
                     setQueryResultName("");
                 }}>
-                clear result
+                清除结果
             </Button>
             <TextField
                 size="small"
-                label="import as"
+                label="导入为"
                 sx={{width: 120, ml: 'auto', '& .MuiInputBase-root': {fontSize: 12, height: 32}, 
                      '& .MuiInputLabel-root': {fontSize: 12, transform: "translate(14px, -6px) scale(0.75)"}}}
                 slotProps={{
@@ -1498,7 +1498,7 @@ export const DataQueryForm: React.FC<{
             />
             <Button variant="contained" color="primary" size="small" disabled={queryResultName === ""} sx={{textTransform: "none", width: 120}}
                 onClick={() => handleImportQueryResult()}>
-            import data
+            导入数据
             </Button> 
         </Box>
     ] : [];
@@ -1512,7 +1512,7 @@ export const DataQueryForm: React.FC<{
             </Box>}
             <Typography variant="body2" sx={{color: "text.secondary"}}>
                 <Typography variant="caption" sx={{color: "text.primary", fontSize: 11, mx: 0.5}}>
-                    query from tables:
+                    从表查询：
                 </Typography>
                 {availableTables.map((table) => (
                     <Chip key={table.name} label={table.name} //icon={selectedTables.includes(table.name) ? <CheckIcon /> : undefined}
@@ -1559,15 +1559,15 @@ export const DataQueryForm: React.FC<{
                 <Box sx={{display: "flex", flexDirection: "row", gap: 1, justifyContent: "flex-end"}}>
                     <Button variant="outlined" color="primary" size="small" sx={{textTransform: "none"}} disabled={queryResult?.status === "error"}
                         startIcon={<PrecisionManufacturingIcon />} onClick={() => aiCompleteQuery(query)}>
-                        help me complete the query from selected tables
+                        帮我从选定的表完成查询
                     </Button>
                     {queryResult?.status === "error" && <Button variant="contained" color="primary" size="small" sx={{textTransform: "none",minWidth: 120}} 
                         startIcon={<PrecisionManufacturingIcon />} onClick={() => aiCompleteQuery(queryResult.code + "\n error:" + queryResult.message)}>
-                        help me fix the error
+                        帮我修复错误
                     </Button>}
                     <Button variant="contained" color="primary" size="small" sx={{textTransform: "none", ml: 'auto', width: 80}}
                         onClick={() => handleViewQuerySample(query)}>
-                        run query
+                        运行查询
                     </Button>
                 </Box>
                 {queryResult && queryResultBox}

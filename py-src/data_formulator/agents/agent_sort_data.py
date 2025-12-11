@@ -10,6 +10,8 @@ logger = logging.getLogger(__name__)
 
 
 SYSTEM_PROMPT = '''You are a data scientist to help user to sort data.
+
+**Language Rule: You MUST respond in Chinese (简体中文) for all explanations, descriptions, and communications.**
 The user will provide list of items in the form of a json object, and your goal is to sort the data in its natural order based on your knowledge.
 Create an output json object with sorted data based off the [INPUT].
 

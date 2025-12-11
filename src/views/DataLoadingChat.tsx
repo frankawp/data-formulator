@@ -129,12 +129,12 @@ export const DataLoadingChat: React.FC = () => {
                 justifyContent: 'left',
             }}>
                 <CircularProgress size={10} sx={{ color: 'text.secondary' }} />
-                <Typography variant="body2" sx={{ 
-                    ml: 1, 
-                    fontSize: 10, 
+                <Typography variant="body2" sx={{
+                    ml: 1,
+                    fontSize: 10,
                     color: 'rgba(0, 0, 0, 0.7) !important'
                 }}>
-                    extracting data...
+                    正在提取数据...
                 </Typography>
             </Box>
         </Box>
@@ -227,7 +227,7 @@ export const DataLoadingChat: React.FC = () => {
                             <DataPreviewBox />
                         ) : (
                             <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', mt: 4, fontSize: '11px' }}>
-                                No data available
+                                暂无数据
                             </Typography>
                         )}
 
@@ -245,7 +245,7 @@ export const DataLoadingChat: React.FC = () => {
                                 disabled={!selectedTable || selectedTable.content.type !== 'image_url' || cleanInProgress}
                                 size="small"
                             >
-                                Extract data from image
+                                从图片提取数据
                             </Button>
                             <Button
                                 variant="contained"
@@ -254,7 +254,7 @@ export const DataLoadingChat: React.FC = () => {
                                 disabled={!selectedTable || selectedTable.content.type !== 'csv'}
                                 size="small"
                             >
-                                Load table
+                                加载表格
                             </Button>
                         </Box>
                     </Box>
@@ -316,8 +316,8 @@ export const DataLoadingChatDialog: React.FC<DataLoadingChatDialogProps> = ({
                 sx={{ '& .MuiDialog-paper': { maxWidth: '100%', maxHeight: 840, minWidth: 800 } }}
             >
                 <DialogTitle sx={{display: "flex"}}>
-                    Extract Data
-                    {dataCleanBlocks.length > 0 && <Tooltip title="Reset dialog">  
+                    提取数据
+                    {dataCleanBlocks.length > 0 && <Tooltip title="重置对话框">  
                         <IconButton size="small" color='warning' 
                             sx={{
                             '&:hover': {  transform: 'rotate(180deg)', 
