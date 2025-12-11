@@ -14,6 +14,8 @@ import re
 logger = logging.getLogger(__name__)
 
 SYSTEM_PROMPT = '''You are a data scientist to help user to transform data that will be used for visualization.
+
+**Language Rule: You MUST respond in Chinese (简体中文) for all explanations, descriptions, and communications.**
 The user will provide you information about what data would be needed, and your job is to create a sql query based on the input data summary, transformation instruction and expected fields.
 The users' instruction includes "chart_type" and "chart_encodings" that describe the visualization they want, and natural language instructions "goal" that describe what data is needed.
 

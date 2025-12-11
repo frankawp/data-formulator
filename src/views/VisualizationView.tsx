@@ -253,7 +253,7 @@ export let SampleSizeEditor: FC<{
         >
             <Box sx={{ p: 2, width: 300 }}>
                 <Typography fontSize="small" gutterBottom>
-                    Adjust sample size: {localSampleSize} / {totalSize} rows
+                    调整样本大小：{localSampleSize} / {totalSize} 行
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <Typography variant="caption" color="text.secondary" sx={{ mr: 1 }}>100</Typography>
@@ -272,7 +272,7 @@ export let SampleSizeEditor: FC<{
                         onSampleSizeChange(localSampleSize);
                         setAnchorEl(null);
                     }}>
-                        Resample
+                        重新采样
                     </Button>
                 </Box>
             </Box>
@@ -577,7 +577,7 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
     let codeExpl = table.derive?.explanation?.code || "";
     
     let saveButton = (
-        <Tooltip key="save-copy-tooltip" title="save a copy">
+        <Tooltip key="save-copy-tooltip" title="保存副本">
             <span>
                 <IconButton color="primary" key="unsave-btn" size="small" sx={{ textTransform: "none" }}
                     onClick={() => {
@@ -591,7 +591,7 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
         </Tooltip>
     );
 
-    let duplicateButton = <Tooltip key="duplicate-btn-tooltip" title="duplicate the chart">
+    let duplicateButton = <Tooltip key="duplicate-btn-tooltip" title="复制图表">
         <span>
             <IconButton color="primary" key="duplicate-btn" size="small" sx={{ textTransform: "none" }}
                 disabled={trigger != undefined}
@@ -605,7 +605,7 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
 
 
     let deleteButton = (
-        <Tooltip title="delete" key="delete-btn-tooltip">
+        <Tooltip title="删除" key="delete-btn-tooltip">
             <span>
                 <IconButton color="warning" size="small" sx={{ textTransform: "none" }}  disabled={trigger != undefined}
                             onClick={() => { handleDeleteChart() }}>
@@ -666,9 +666,9 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
                     }}
                 >
                     <QuestionAnswerIcon sx={{ fontSize: '14px', mr: 0.5 }} />
-                    chat
+                    对话
                 </Button>
-                <Button 
+                <Button
                     key="code-btn"
                     onClick={() => {
                         if (codeViewOpen) {
@@ -691,7 +691,7 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
                     }}
                 >
                     <TerminalIcon sx={{ fontSize: '14px', mr: 0.5 }} />
-                    code
+                    代码
                 </Button>
                 {codeExpl != "" && <Button 
                     key="explanation-btn"
@@ -716,7 +716,7 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
                     }}
                 >
                     <TextSnippetIcon sx={{ fontSize: '14px', mr: 0.5 }} />
-                    explain
+                    解释
                 </Button>}
                 {hasConcepts && (
                     <Button 
@@ -742,7 +742,7 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
                         }}
                     >
                         <InfoIcon sx={{ fontSize: '14px', mr: 0.5 }} />
-                        concepts
+                        概念
                     </Button>
                 )}
             </ButtonGroup>
@@ -763,17 +763,17 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
 
     let chartMessage = "";
     if (focusedChart.chartType == "Table") {
-        chartMessage = "Tell me what you want to visualize!";
+        chartMessage = "告诉我你想可视化什么！";
     } else if (focusedChart.chartType == "Auto") {
-        chartMessage = "Say something to get chart recommendations!";
+        chartMessage = "说点什么来获取图表推荐！";
     } else if (encodingShelfEmpty) {
-        chartMessage = "Put data fields to chart builder or describe what you want!";
+        chartMessage = "将数据字段拖到图表构建器或描述你想要的！";
     } else if (chartUnavailable) {
-        chartMessage = "Formulate data to create the visualization!";
+        chartMessage = "处理数据以创建可视化！";
     } else if (chartSynthesisInProgress.includes(focusedChart.id)) {
-        chartMessage = "Synthesis in progress...";
+        chartMessage = "正在合成...";
     } else if (table.derive) {
-        chartMessage = "AI generated results can be inaccurate, inspect it!";
+        chartMessage = "AI生成的结果可能不准确，请检查！";
     }
 
     let chartActionItems = isDataStale ? [] : (
@@ -781,7 +781,7 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
             {(table.virtual || table.rows.length > 5000) && !(chartUnavailable || encodingShelfEmpty) ? (
                 <Box sx={{ display: 'flex', flexDirection: "row", margin: "auto", justifyContent: 'center', alignItems: 'center'}}>
                     <Typography component="span" fontSize="small" color="text.secondary" sx={{textAlign:'center'}}>
-                        visualizing
+                        正在可视化
                     </Typography>
                     <SampleSizeEditor 
                         initialSize={activeVisTableRows.length}
@@ -791,9 +791,9 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
                         }}
                     />
                     <Typography component="span" fontSize="small" color="text.secondary" sx={{textAlign:'center'}}>
-                        sample rows
+                        行样本
                     </Typography>
-                    <Tooltip title="sample again!">
+                    <Tooltip title="重新采样！">
                         <IconButton size="small" color="primary" onClick={() => {
                             fetchDisplayRows(activeVisTableRows.length);
                         }}>
@@ -881,9 +881,9 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
             <Box ref={explanationComponentsRef} sx={{width: "100%", mx: "auto"}}>
                 <Collapse in={conceptExplanationsOpen}>
                     <Box sx={{minWidth: 440, maxWidth: 800, padding: "0px 8px", position: 'relative', margin: '8px auto'}}>
-                        <ConceptExplCards 
+                        <ConceptExplCards
                             concepts={extractConceptExplanations(table)}
-                            title="Derived Concepts"
+                            title="派生概念"
                             maxCards={8}
                         />
                     </Box>
@@ -900,7 +900,7 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
                         </ButtonGroup>
                         {/* <Typography fontSize="small" sx={{color: 'gray'}}>{table.derive?.source} → {table.id}</Typography> */}
                         <CodeExplanationCard
-                            title="Data transformation code"
+                            title="数据转换代码"
                             icon={<CodeIcon sx={{ fontSize: 16, color: 'primary.main' }} />}
                             transformationIndicatorText={transformationIndicatorText}
                         >
@@ -927,7 +927,7 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
                             </IconButton>
                         </ButtonGroup>
                         <CodeExplanationCard
-                            title="Data transformation explanation"
+                            title="数据转换说明"
                             icon={<TerminalIcon sx={{ fontSize: 16, color: 'primary.main' }} />}
                             transformationIndicatorText={transformationIndicatorText}
                         >
@@ -965,7 +965,7 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
         backgroundColor: 'rgba(255, 255, 255, 0.9)',
         borderRadius: '4px',
     }} alignItems="center">
-        <Tooltip key="zoom-out-tooltip" title="zoom out">
+        <Tooltip key="zoom-out-tooltip" title="缩小">
             <span>
                 <IconButton color="primary" size='small' disabled={localScaleFactor <= scaleMin} onClick={() => {
                     setLocalScaleFactor(prev => Math.max(scaleMin, prev - 0.1));
@@ -978,7 +978,7 @@ export const ChartEditorFC: FC<{}> = function ChartEditorFC({}) {
                 value={localScaleFactor} onChange={(event: Event, newValue: number | number[]) => {
             setLocalScaleFactor(newValue as number);
         }} />
-        <Tooltip key="zoom-in-tooltip" title="zoom in">
+        <Tooltip key="zoom-in-tooltip" title="放大">
             <span>
                 <IconButton color="primary" size='small' disabled={localScaleFactor >= scaleMax} onClick={() => {
                     setLocalScaleFactor(prev => Math.min(scaleMax, prev + 0.1));
@@ -1048,7 +1048,7 @@ export const VisualizationViewFC: FC<VisPanelProps> = function VisualizationView
                 {focusedTableId ? <ChartRecBox sx={{margin: 'auto'}} tableId={focusedTableId as string} placeHolderChartId={focusedChartId as string} /> : null}
                 <Divider sx={{my: 3}} textAlign='left'>
                     <Typography sx={{fontSize: 12, color: "text.secondary"}}>
-                        or, start with a chart type
+                        或者，从图表类型开始
                     </Typography>
                 </Divider>
                 {chartSelectionBox}

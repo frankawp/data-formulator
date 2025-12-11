@@ -181,11 +181,11 @@ export const DatasetSelectionView: React.FC<DatasetSelectionViewProps> = functio
                                     {dataset.description} <Typography variant="caption" sx={{color: "primary.light", fontSize: 10, mx: 0.5}}>[from {dataset.source}]</Typography> 
                                 </Typography>
                                 <Box sx={{marginLeft: "auto", flexShrink: 0}} >
-                                    <Button size="small" variant="contained" 
+                                    <Button size="small" variant="contained"
                                             onClick={(event: React.MouseEvent<HTMLElement>) => {
                                                 handleSelectDataset(dataset);
                                             }}>
-                                        load dataset
+                                        加载数据集
                                     </Button>
                                 </Box>
                             </Box>
@@ -271,7 +271,7 @@ export const DatasetSelectionDialog: React.FC<{ buttonElement: any }> = function
                 open={tableDialogOpen}
                 sx={{ '& .MuiDialog-paper': { maxWidth: '100%', maxHeight: 840, minWidth: 800 } }}
             >
-                <DialogTitle sx={{display: "flex"}}>Explore
+                <DialogTitle sx={{display: "flex"}}>探索
                     <IconButton
                         sx={{marginLeft: "auto"}}
                         edge="start"
@@ -359,7 +359,7 @@ export const TableUploadDialog: React.FC<TableUploadDialogProps> = ({ buttonElem
                             "timestamp": Date.now(),
                             "type": "error",
                             "component": "data loader",
-                            "value": `File ${file.name} is too large (${(file.size / (1024 * 1024)).toFixed(2)}MB), upload it via DATABASE option instead.`
+                            "value": `文件 ${file.name} 太大（${(file.size / (1024 * 1024)).toFixed(2)}MB），请通过数据库选项上传。`
                         }));
                         continue; // Skip this file and process the next one
                     }
@@ -401,7 +401,7 @@ export const TableUploadDialog: React.FC<TableUploadDialogProps> = ({ buttonElem
                                     "timestamp": Date.now(),
                                     "type": "error",
                                     "component": "data loader",
-                                    "value": `Failed to parse Excel file ${file.name}. Please check the file format.`
+                                    "value": `解析Excel文件 ${file.name} 失败，请检查文件格式。`
                                 }));
                             }
                         }
@@ -413,7 +413,7 @@ export const TableUploadDialog: React.FC<TableUploadDialogProps> = ({ buttonElem
                         "timestamp": Date.now(),
                         "type": "error",
                         "component": "data loader",
-                        "value": `Unsupported file format: ${file.name}. Please use CSV, TSV, JSON, or Excel files.`
+                        "value": `不支持的文件格式：${file.name}。请使用CSV、TSV、JSON或Excel文件。`
                     }));
                 }
             }
@@ -437,13 +437,13 @@ export const TableUploadDialog: React.FC<TableUploadDialogProps> = ({ buttonElem
                 onChange={handleFileUpload}
             />
             {buttonElement && (
-                <Tooltip 
+                <Tooltip
                     title={serverConfig.DISABLE_FILE_UPLOAD ? (
                         <Typography sx={{ fontSize: '11px' }}>
-                            Install Data Formulator locally to enable file upload. <br />
-                            Link: <Link 
-                                href="https://github.com/microsoft/data-formulator" 
-                                target="_blank" 
+                            本地安装Data Formulator以启用文件上传。<br />
+                            链接：<Link
+                                href="https://github.com/microsoft/data-formulator"
+                                target="_blank"
                                 rel="noopener noreferrer"
                                 sx={{ color: 'inherit', textDecoration: 'underline' }}
                                 onClick={(e) => e.stopPropagation()}
@@ -526,7 +526,7 @@ export const TableURLDialog: React.FC<TableURLDialogProps> = ({ buttonElement, d
     let dialog = <Dialog key="table-url-dialog" onClose={()=>{setDialogOpen(false)}} open={dialogOpen}
             sx={{ '& .MuiDialog-paper': { maxWidth: '80%', maxHeight: 800, minWidth: 800 } }} disableRestoreFocus
         >
-            <DialogTitle  sx={{display: "flex"}}>Upload data URL
+            <DialogTitle  sx={{display: "flex"}}>上传数据URL
                 <IconButton
                     sx={{marginLeft: "auto"}}
                     edge="start"
@@ -539,15 +539,15 @@ export const TableURLDialog: React.FC<TableURLDialogProps> = ({ buttonElement, d
                 </IconButton>
             </DialogTitle>
             <DialogContent sx={{overflowX: "hidden", padding: 2, display: "flex", flexDirection: "column"}} dividers>
-                <TextField error={tableURL != "" && !hasValidSuffix} autoFocus placeholder='Please enter URL of the dataset' 
-                            helperText={hasValidSuffix ? "" : "the url should links to a csv, tsv or json file"}
-                            sx={{marginBottom: 1}} size="small" value={tableURL} onChange={(event) => { setTableURL(event.target.value.trim()); }} 
-                            id="dataset-url" label="data url" variant="outlined" />
+                <TextField error={tableURL != "" && !hasValidSuffix} autoFocus placeholder='请输入数据集URL'
+                            helperText={hasValidSuffix ? "" : "URL应指向csv、tsv或json文件"}
+                            sx={{marginBottom: 1}} size="small" value={tableURL} onChange={(event) => { setTableURL(event.target.value.trim()); }}
+                            id="dataset-url" label="数据URL" variant="outlined" />
             </ DialogContent>
             <DialogActions>
-                <Button variant="contained" size="small" onClick={()=>{ setDialogOpen(false); }}>cancel</Button>
+                <Button variant="contained" size="small" onClick={()=>{ setDialogOpen(false); }}>取消</Button>
                 <Button variant="contained" size="small" onClick={()=>{ setDialogOpen(false); handleSubmitContent(); }} >
-                    upload
+                    上传
                 </Button>
             </DialogActions>
         </Dialog>;
@@ -680,7 +680,7 @@ export const TableCopyDialogV2: React.FC<TableCopyDialogProps> = ({
     let dialog = <Dialog key="table-selection-dialog" onClose={handleCloseDialog} open={dialogOpen}
             sx={{ '& .MuiDialog-paper': { maxWidth: '80%', maxHeight: 800, minWidth: 800 } }}
         >
-            <DialogTitle  sx={{display: "flex"}}>Paste & Upload Data
+            <DialogTitle  sx={{display: "flex"}}>粘贴并上传数据
                 <IconButton
                     sx={{marginLeft: "auto"}}
                     edge="start"
@@ -702,9 +702,9 @@ export const TableCopyDialogV2: React.FC<TableCopyDialogProps> = ({
                         {isOverSizeLimit && (
                             <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 1, padding: 1, backgroundColor: 'rgba(244, 67, 54, 0.1)', borderRadius: 1, border: '1px solid rgba(244, 67, 54, 0.3)' }}>
                                 <Typography variant="caption" sx={{ flex: 1, color: 'error.main', fontWeight: 500 }}>
-                                    ⚠️ Content exceeds {(MAX_CONTENT_SIZE / (1024 * 1024)).toFixed(0)}MB size limit. 
-                                    Current size: {(new Blob([tableContent]).size / (1024 * 1024)).toFixed(2)}MB. 
-                                    Please use the DATABASE option for large datasets.
+                                    ⚠️ 内容超过{(MAX_CONTENT_SIZE / (1024 * 1024)).toFixed(0)}MB大小限制。
+                                    当前大小：{(new Blob([tableContent]).size / (1024 * 1024)).toFixed(2)}MB。
+                                    大数据集请使用数据库选项。
                                 </Typography>
                             </Box>
                         )}
@@ -712,16 +712,16 @@ export const TableCopyDialogV2: React.FC<TableCopyDialogProps> = ({
                         {isLargeContent && !isOverSizeLimit && (
                             <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 1, padding: 1, backgroundColor: 'rgba(255, 193, 7, 0.1)', borderRadius: 1 }}>
                                 <Typography variant="caption" sx={{ flex: 1 }}>
-                                    Large content detected ({Math.round(tableContent.length / 1000)}KB). 
-                                    {showFullContent ? 'Showing full content (may be slow)' : 'Showing preview for performance'}
+                                    检测到大内容（{Math.round(tableContent.length / 1000)}KB）。
+                                    {showFullContent ? '显示完整内容（可能较慢）' : '显示预览以提高性能'}
                                 </Typography>
-                                <Button 
-                                    size="small" 
-                                    variant="outlined" 
+                                <Button
+                                    size="small"
+                                    variant="outlined"
                                     onClick={toggleFullContent}
                                     sx={{ textTransform: 'none', minWidth: 'auto' }}
                                 >
-                                    {showFullContent ? 'Show Preview' : 'Show Full'}
+                                    {showFullContent ? '显示预览' : '显示完整'}
                                 </Button>
                             </Box>
                         )}
@@ -751,7 +751,7 @@ export const TableCopyDialogV2: React.FC<TableCopyDialogProps> = ({
                                     shrink: true
                                 }
                             }}
-                            placeholder="paste data (csv, tsv, or json) and upload it!"
+                            placeholder="粘贴数据（csv、tsv或json）并上传！"
                             onPasteCapture={(e) => {
                                 if (e.clipboardData.files.length > 0) {
                                     let file = e.clipboardData.files[0];
@@ -769,7 +769,7 @@ export const TableCopyDialogV2: React.FC<TableCopyDialogProps> = ({
                                 }
                             }}
                             autoComplete='off'
-                            label="data content" 
+                            label="数据内容" 
                             variant="outlined" 
                             multiline 
                         />
@@ -777,15 +777,15 @@ export const TableCopyDialogV2: React.FC<TableCopyDialogProps> = ({
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button variant="text" sx={{textTransform: 'none'}} size="small" onClick={handleCloseDialog}>cancel</Button>
-                <Tooltip title={isOverSizeLimit ? `Content exceeds ${(MAX_CONTENT_SIZE / (1024 * 1024)).toFixed(0)}MB size limit` : ""} placement="top">
+                <Button variant="text" sx={{textTransform: 'none'}} size="small" onClick={handleCloseDialog}>取消</Button>
+                <Tooltip title={isOverSizeLimit ? `内容超过${(MAX_CONTENT_SIZE / (1024 * 1024)).toFixed(0)}MB大小限制` : ""} placement="top">
                     <span>
-                        <Button disabled={tableContentType != "text" || tableContent.trim() == "" || isOverSizeLimit} variant="contained" sx={{textTransform: 'none'}} size="small" 
-                            onClick={()=>{ 
-                                handleCloseDialog(); 
+                        <Button disabled={tableContentType != "text" || tableContent.trim() == "" || isOverSizeLimit} variant="contained" sx={{textTransform: 'none'}} size="small"
+                            onClick={()=>{
+                                handleCloseDialog();
                                 handleSubmitContent(tableContent); // Always use full content for processing
                             }} >
-                            {"upload"}
+                            {"上传"}
                         </Button>
                     </span>
                 </Tooltip>

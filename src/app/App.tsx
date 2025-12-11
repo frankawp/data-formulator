@@ -157,7 +157,7 @@ export const ImportStateButton: React.FC<{}> = ({ }) => {
                 inputRef={inputRef}
                 onChange={handleFileUpload}
             />
-            import session
+            导入会话
         </Button>
     );
 }
@@ -188,10 +188,10 @@ export const ExportStateButton: React.FC<{}> = ({ }) => {
         return JSON.stringify(stateToSerialize);
     });
 
-    return <Tooltip title="save session locally">
-        <Button 
-            variant="text" 
-            sx={{textTransform: 'none'}} 
+    return <Tooltip title="保存会话到本地">
+        <Button
+            variant="text"
+            sx={{textTransform: 'none'}}
             onClick={() => {
                 function download(content: string, fileName: string, contentType: string) {
                     let a = document.createElement("a");
@@ -205,7 +205,7 @@ export const ExportStateButton: React.FC<{}> = ({ }) => {
             }}
             startIcon={<DownloadIcon />}
         >
-            export session
+            导出会话
         </Button>
     </Tooltip>
 }
@@ -246,7 +246,7 @@ const TableMenu: React.FC = () => {
                 aria-expanded={open ? 'true' : undefined}
                 sx={{ textTransform: 'none' }}
             >
-                Data
+                数据
             </Button>
             <Menu
                 id="add-table-menu"
@@ -264,22 +264,22 @@ const TableMenu: React.FC = () => {
             >
                 <MenuItem onClick={() => handleOpenDialog('database')}>
                     <Typography fontSize="inherit">
-                        connect to database <CloudQueueIcon fontSize="inherit" /> 
+                        连接数据库 <CloudQueueIcon fontSize="inherit" />
                     </Typography>
                 </MenuItem>
                 <MenuItem onClick={() => handleOpenDialog('extract')}>
                     <Typography fontSize="inherit">
-                        extract data <span style={{fontSize: '11px'}}>(image/messy text)</span>
+                        提取数据 <span style={{fontSize: '11px'}}>（图片/杂乱文本）</span>
                     </Typography>
                 </MenuItem>
                 <MenuItem onClick={() => handleOpenDialog('paste')}>
                     <Typography>
-                        paste data <span style={{fontSize: '11px'}}>(csv/tsv)</span>
+                        粘贴数据 <span style={{fontSize: '11px'}}>（csv/tsv）</span>
                     </Typography>
                 </MenuItem>
                 <MenuItem onClick={() => handleOpenDialog('upload')}>
                     <Typography>
-                        upload data file <span style={{fontSize: '11px'}}>(csv/tsv/json)</span>
+                        上传数据文件 <span style={{fontSize: '11px'}}>（csv/tsv/json）</span>
                     </Typography>
                 </MenuItem>
             </Menu>
@@ -314,13 +314,13 @@ const SessionMenu: React.FC = () => {
     const dispatch = useDispatch();
     return (
         <>
-            <Button 
-                variant="text" 
-                onClick={(e) => setAnchorEl(e.currentTarget)} 
-                endIcon={<KeyboardArrowDownIcon />} 
+            <Button
+                variant="text"
+                onClick={(e) => setAnchorEl(e.currentTarget)}
+                endIcon={<KeyboardArrowDownIcon />}
                 sx={{ textTransform: 'none' }}
             >
-                Session
+                会话
             </Button>
             <Menu
                 id="session-menu"
@@ -339,24 +339,24 @@ const SessionMenu: React.FC = () => {
                 <MenuItem onClick={(e) => {}}>
                     <ImportStateButton />
                 </MenuItem>
-                <Divider><Typography variant="caption" sx={{ fontSize: 12, color: 'text.secondary' }}>database file</Typography></Divider>
-                {sessionId && tables.some(t => t.virtual) && 
+                <Divider><Typography variant="caption" sx={{ fontSize: 12, color: 'text.secondary' }}>数据库文件</Typography></Divider>
+                {sessionId && tables.some(t => t.virtual) &&
                     <Typography fontSize="inherit" sx={{ color: theme.palette.warning.main, width: '160px', display: 'flex', alignItems: 'center', gap: 1, fontSize: 9 }}>
-                        This session contains data stored in the database, export and reload the database to resume the session later.
+                        此会话包含存储在数据库中的数据，导出并重新加载数据库以便稍后恢复会话。
                     </Typography>}
                 <MenuItem disabled={!sessionId || !tables.some(t => t.virtual)}  onClick={() => {
                     handleDBDownload(sessionId ?? '');
                 }}>
                     <Button startIcon={<DownloadIcon />}
                         sx={{ fontSize: 14, textTransform: 'none', display: 'flex', alignItems: 'center'}}>
-                        download database
+                        下载数据库
                     </Button>
                 </MenuItem>
                 <MenuItem onClick={() => {}}>
-                    <Button disabled={!sessionId} startIcon={<UploadIcon />} 
+                    <Button disabled={!sessionId} startIcon={<UploadIcon />}
                         sx={{ fontSize: 14, textTransform: 'none', display: 'flex', alignItems: 'center'}}
                         component="label">
-                        import database
+                        导入数据库
                         <input type="file" hidden accept=".db" onChange={async (e) => {
                             const file = e.target.files?.[0];
                             if (!file) return;
@@ -366,12 +366,12 @@ const SessionMenu: React.FC = () => {
                                 const response = await fetch(getUrls().UPLOAD_DB_FILE, { method: 'POST', body: formData });
                                 const data = await response.json();
                                 if (data.status === 'success') {
-                                    dispatch(dfActions.addMessages({ timestamp: Date.now(), component: "DB Manager", type: "success", value: "Database imported successfully" }));
+                                    dispatch(dfActions.addMessages({ timestamp: Date.now(), component: "DB Manager", type: "success", value: "数据库导入成功" }));
                                 } else {
-                                    dispatch(dfActions.addMessages({ timestamp: Date.now(), component: "DB Manager", type: "error", value: data.message || 'Import failed' }));
+                                    dispatch(dfActions.addMessages({ timestamp: Date.now(), component: "DB Manager", type: "error", value: data.message || '导入失败' }));
                                 }
                             } catch (error) {
-                                dispatch(dfActions.addMessages({ timestamp: Date.now(), component: "DB Manager", type: "error", value: 'Import failed' }));
+                                dispatch(dfActions.addMessages({ timestamp: Date.now(), component: "DB Manager", type: "error", value: '导入失败' }));
                             }
                             e.target.value = '';
                         }} />
@@ -389,37 +389,37 @@ const ResetDialog: React.FC = () => {
 
     return (
         <>
-            <Button 
-                variant="text" 
+            <Button
+                variant="text"
                 sx={{textTransform: 'none'}}
-                onClick={() => setOpen(true)} 
+                onClick={() => setOpen(true)}
                 endIcon={<PowerSettingsNewIcon />}
             >
-                Reset
+                重置
             </Button>
             <Dialog onClose={() => setOpen(false)} open={open}>
-                <DialogTitle sx={{ display: "flex", alignItems: "center" }}>Reset Session?</DialogTitle>
+                <DialogTitle sx={{ display: "flex", alignItems: "center" }}>重置会话？</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        All unexported content (charts, derived data, concepts) will be lost upon reset.
+                        重置后所有未导出的内容（图表、派生数据、概念）都将丢失。
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button 
-                        onClick={() => { 
-                            dispatch(dfActions.resetState()); 
+                    <Button
+                        onClick={() => {
+                            dispatch(dfActions.resetState());
                             setOpen(false);
-                            
+
                             // Add a delay to ensure the state has been reset before reloading
                             setTimeout(() => {
                                 window.location.reload();
                             }, 250); // 250ms should be enough for state update
-                        }} 
+                        }}
                         endIcon={<PowerSettingsNewIcon />}
                     >
-                        reset session 
+                        重置会话
                     </Button>
-                    <Button onClick={() => setOpen(false)}>cancel</Button>
+                    <Button onClick={() => setOpen(false)}>取消</Button>
                 </DialogActions>
             </Dialog>
         </>
@@ -447,10 +447,10 @@ const ConfigDialog: React.FC = () => {
     return (
         <>
             <Button variant="text" sx={{textTransform: 'none'}} onClick={() => setOpen(true)} startIcon={<SettingsIcon />}>
-                Settings
+                设置
             </Button>
             <Dialog onClose={() => setOpen(false)} open={open}>
-                <DialogTitle>Settings</DialogTitle>
+                <DialogTitle>设置</DialogTitle>
                 <DialogContent>
                     <Box sx={{ 
                         display: 'flex', 
@@ -458,11 +458,11 @@ const ConfigDialog: React.FC = () => {
                         gap: 3,
                         maxWidth: 400
                     }}>
-                        <Divider><Typography variant="caption">Frontend</Typography></Divider>
+                        <Divider><Typography variant="caption">前端</Typography></Divider>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                             <Box sx={{ flex: 1 }}>
                                 <TextField
-                                    label="default chart width"
+                                    label="默认图表宽度"
                                     type="number"
                                     variant="outlined"
                                     value={defaultChartWidth}
@@ -480,8 +480,8 @@ const ConfigDialog: React.FC = () => {
                                         }
                                     }}
                                     error={defaultChartWidth < 100 || defaultChartWidth > 1000}
-                                    helperText={defaultChartWidth < 100 || defaultChartWidth > 1000 ? 
-                                        "Value must be between 100 and 1000 pixels" : ""}
+                                    helperText={defaultChartWidth < 100 || defaultChartWidth > 1000 ?
+                                        "值必须在100到1000像素之间" : ""}
                                 />
                             </Box>
                             <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
@@ -489,7 +489,7 @@ const ConfigDialog: React.FC = () => {
                             </Typography>
                             <Box sx={{ flex: 1 }}>
                                 <TextField
-                                    label="default chart height"
+                                    label="默认图表高度"
                                     type="number"
                                     variant="outlined"
                                     value={defaultChartHeight}
@@ -507,16 +507,16 @@ const ConfigDialog: React.FC = () => {
                                         }
                                     }}
                                     error={defaultChartHeight < 100 || defaultChartHeight > 1000}
-                                    helperText={defaultChartHeight < 100 || defaultChartHeight > 1000 ? 
-                                        "Value must be between 100 and 1000 pixels" : ""}
+                                    helperText={defaultChartHeight < 100 || defaultChartHeight > 1000 ?
+                                        "值必须在100到1000像素之间" : ""}
                                 />
                             </Box>
                         </Box>
-                        <Divider><Typography variant="caption">Backend</Typography></Divider>
+                        <Divider><Typography variant="caption">后端</Typography></Divider>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                             <Box sx={{ flex: 1 }}>
                                 <TextField
-                                    label="formulate timeout (seconds)"
+                                    label="公式化超时（秒）"
                                     type="number"
                                     variant="outlined"
                                     value={formulateTimeoutSeconds}
@@ -529,19 +529,19 @@ const ConfigDialog: React.FC = () => {
                                         max: 3600,
                                     }}
                                     error={formulateTimeoutSeconds <= 0 || formulateTimeoutSeconds > 3600}
-                                    helperText={formulateTimeoutSeconds <= 0 || formulateTimeoutSeconds > 3600 ? 
-                                        "Value must be between 1 and 3600 seconds" : ""}
+                                    helperText={formulateTimeoutSeconds <= 0 || formulateTimeoutSeconds > 3600 ?
+                                        "值必须在1到3600秒之间" : ""}
                                     fullWidth
                                 />
                                 <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-                                    Maximum time allowed for the formulation process before timing out. 
+                                    公式化过程超时前允许的最大时间。
                                 </Typography>
                             </Box>
                         </Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                             <Box sx={{ flex: 1 }}>
                                 <TextField
-                                    label="max repair attempts"
+                                    label="最大修复尝试次数"
                                     type="number"
                                     variant="outlined"
                                     value={maxRepairAttempts}
@@ -559,11 +559,11 @@ const ConfigDialog: React.FC = () => {
                                         }
                                     }}
                                     error={maxRepairAttempts <= 0 || maxRepairAttempts > 5}
-                                    helperText={maxRepairAttempts <= 0 || maxRepairAttempts > 5 ? 
-                                        "Value must be between 1 and 5" : ""}
+                                    helperText={maxRepairAttempts <= 0 || maxRepairAttempts > 5 ?
+                                        "值必须在1到5之间" : ""}
                                 />
                                 <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-                                    How many attempts LLM will make to repair code if code fails to execute (recommended = 1, higher values might increase the chance of success but it's slow).
+                                    当代码执行失败时，LLM尝试修复代码的次数（推荐=1，更高的值可能会增加成功几率但速度较慢）。
                                 </Typography>
                             </Box>
                         </Box>
@@ -575,8 +575,8 @@ const ConfigDialog: React.FC = () => {
                         setMaxRepairAttempts(1);
                         setDefaultChartWidth(300);
                         setDefaultChartHeight(300);
-                    }}>Reset to default</Button>
-                    <Button onClick={() => setOpen(false)}>Cancel</Button>
+                    }}>恢复默认</Button>
+                    <Button onClick={() => setOpen(false)}>取消</Button>
                     <Button 
                         variant={hasChanges ? "contained" : "text"}
                         disabled={!hasChanges || isNaN(maxRepairAttempts) || maxRepairAttempts <= 0 || maxRepairAttempts > 5 
@@ -588,7 +588,7 @@ const ConfigDialog: React.FC = () => {
                             setOpen(false);
                         }}
                     >
-                        Apply
+                        应用
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -735,7 +735,7 @@ export const AppFC: FC<AppFCProps> = function AppFC(appProps) {
                             },
                         }}
                     >
-                        About
+                        关于
                     </Button>
                     <Button 
                         component="a" 
@@ -758,7 +758,7 @@ export const AppFC: FC<AppFCProps> = function AppFC(appProps) {
                             },
                         }}
                     >
-                        App
+                        应用
                     </Button>
                 </Box>
                 {!isAboutPage && (
@@ -788,13 +788,13 @@ export const AppFC: FC<AppFCProps> = function AppFC(appProps) {
                         >
                             <ToggleButton value="editor">
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                    <Box component="span">Explore</Box>
+                                    <Box component="span">探索</Box>
                                 </Box>
                             </ToggleButton>
                             <ToggleButton value="report">
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                     <Box component="span">
-                                        {generatedReports.length > 0 ? `Reports (${generatedReports.length})` : 'Reports'}
+                                        {generatedReports.length > 0 ? `报告 (${generatedReports.length})` : '报告'}
                                     </Box>
                                 </Box>
                             </ToggleButton>
@@ -818,13 +818,13 @@ export const AppFC: FC<AppFCProps> = function AppFC(appProps) {
                 )}
                 {isAboutPage && (
                     <Box sx={{ ml: 'auto', display: 'flex', gap: 0.5 }}>
-                        <Tooltip title="Watch Video">
+                        <Tooltip title="观看视频">
                             <IconButton
                                 component="a"
                                 href="https://youtu.be/3ndlwt0Wi3c"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                aria-label="Watch Video"
+                                aria-label="观看视频"
                                 sx={{ 
                                     color: 'inherit',
                                     '&:hover': {
@@ -835,13 +835,13 @@ export const AppFC: FC<AppFCProps> = function AppFC(appProps) {
                                 <YouTubeIcon fontSize="small" />
                             </IconButton>
                         </Tooltip>
-                        <Tooltip title="View on GitHub">
+                        <Tooltip title="在GitHub上查看">
                             <IconButton
                                 component="a"
                                 href="https://github.com/microsoft/data-formulator"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                aria-label="View on GitHub"
+                                aria-label="在GitHub上查看"
                                 sx={{ 
                                     color: 'inherit',
                                     '&:hover': {
@@ -852,13 +852,13 @@ export const AppFC: FC<AppFCProps> = function AppFC(appProps) {
                                 <GitHubIcon fontSize="small" />
                             </IconButton>
                         </Tooltip>
-                        <Tooltip title="Pip Install">
+                        <Tooltip title="Pip安装">
                             <IconButton
                                 component="a"
                                 href="https://pypi.org/project/data-formulator/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                aria-label="Pip Install"
+                                aria-label="Pip安装"
                                 sx={{ 
                                     color: 'inherit',
                                     '&:hover': {
@@ -869,13 +869,13 @@ export const AppFC: FC<AppFCProps> = function AppFC(appProps) {
                                 <Box component="img" src="/pip-logo.svg" sx={{ width: 20, height: 20 }} alt="pip logo" />
                             </IconButton>
                         </Tooltip>
-                        <Tooltip title="Join Discord">
+                        <Tooltip title="加入Discord">
                             <IconButton
                                 component="a"
                                 href="https://discord.gg/mYCZMQKYZb"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                aria-label="Join Discord"
+                                aria-label="加入Discord"
                                 sx={{ 
                                     color: 'inherit',
                                     '&:hover': {
@@ -889,7 +889,7 @@ export const AppFC: FC<AppFCProps> = function AppFC(appProps) {
                     </Box>
                 )}
                 {!isAboutPage && (
-                    <Tooltip title="View on GitHub">
+                    <Tooltip title="在GitHub上查看">
                         <Button
                             component="a"
                             href="https://github.com/microsoft/data-formulator"
@@ -922,7 +922,7 @@ export const AppFC: FC<AppFCProps> = function AppFC(appProps) {
             path: "*",
             element: <DataFormulatorFC />,
             errorElement: <Box sx={{ width: "100%", height: "100%", display: "flex" }}>
-                <Typography color="gray" sx={{ margin: "150px auto" }}>An error has occurred, please <Link href="/">refresh the session</Link>. If the problem still exists, click close session.</Typography>
+                <Typography color="gray" sx={{ margin: "150px auto" }}>发生错误，请<Link href="/">刷新会话</Link>。如果问题仍然存在，请关闭会话。</Typography>
             </Box>
         }
     ]);

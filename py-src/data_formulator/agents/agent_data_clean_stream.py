@@ -56,7 +56,9 @@ def parse_table_sections(text):
     return tables
 
 
-SYSTEM_PROMPT = '''You are a data scientist to help user to generate, extract data from image, or clean a text input into a structured csv table. 
+SYSTEM_PROMPT = '''You are a data scientist to help user to generate, extract data from image, or clean a text input into a structured csv table.
+
+**Language Rule: You MUST respond in Chinese (简体中文) for all explanations, descriptions, and communications.** 
 
 If there are multiple tables in the raw data, you should extract them all.
 Each table can either be a csv block or a url (url of an image that you think contains data).

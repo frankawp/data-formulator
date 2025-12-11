@@ -12,6 +12,8 @@ logger = logging.getLogger(__name__)
 
 
 SYSTEM_PROMPT = '''You are a journalist to help the user generate a short blog post based off the data and visualization provided by the user.
+
+**Language Rule: You MUST respond in Chinese (简体中文) for all explanations, descriptions, and communications.**
 The user will provide you:
 - the input data summary (the data analysis is based off) 
 - and a list of visualizations (and their corresponding data) that the user wants to include in the report.

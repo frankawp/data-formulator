@@ -16,6 +16,8 @@ logger = logging.getLogger(__name__)
 
 
 SYSTEM_PROMPT = '''You are a data scientist to help user to derive new column based on existing columns in a dataset.
+
+**Language Rule: You MUST respond in Chinese (简体中文) for all explanations, descriptions, and communications.**
 Your job is to write a typescript function based on input data summary, instruction and output column name.
 Complete a typescript function based off the [CONTEXT], [TEMPLATE] and [GOAL] provided, the function's input arguments are values from input columns, and the output is a value for the output column.
 The function only operates on primitive types and it will be used by a map() function later to generate the new column.

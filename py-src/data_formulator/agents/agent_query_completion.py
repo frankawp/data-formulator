@@ -11,7 +11,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-SYSTEM_PROMPT = '''You are a data scientist to help with data queries. 
+SYSTEM_PROMPT = '''You are a data scientist to help with data queries.
+
+**Language Rule: You MUST respond in Chinese (简体中文) for all explanations, descriptions, and communications.** 
 The user will provide you with a description of the data source and tables available in the [DATA SOURCE] section and a query in the [USER INPUTS] section. 
 You will need to help the user complete the query and provide reasoning for the query you generated in the [OUTPUT] section.
 
